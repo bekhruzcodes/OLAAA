@@ -1,4 +1,5 @@
-<?php 
+<?php
+session_start();
 require_once "../core.php";
 if (!isset($_SESSION['products'])) {
     $_SESSION['products'] = getAllProducts();
@@ -41,9 +42,9 @@ $products = $_SESSION['products'];
             <div class="row">
                 <div class="col-12">
                     <div class="search-content">
-                        <form action="#" method="get">
+                        <form action="../core.php" method="get">
                             <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="../../Public/img/core-img/search.png" alt=""></button>
+                            <button type="submit" name="search_inp"><img src="../../Public/img/core-img/search.png" alt=""></button>
                         </form>
                     </div>
                 </div>
@@ -113,17 +114,19 @@ $products = $_SESSION['products'];
             <div class="amado-pro-catagory clearfix">
 
                 <!-- Single Catagory -->
-                <div class="single-products-catagory clearfix">
-                    <a href="product-details.php">
-                        <img src="../../Public/img/bg-img/1.jpg" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p>From $180</p>
-                            <h4>Modern Chair</h4>
-                        </div>
-                    </a>
-                </div>
+                <?php foreach ($products as $product): ?>
+                    <div class="single-products-catagory clearfix">
+                        <a href="../core.php?single_id=<?= $product['id']?>">
+                            <img src="<?= $product['image'] ?>" alt="">
+                            <div class="hover-content">
+                                <div class="line"></div>
+                                <p>From $<?= $product['price'] ?></p>
+                                <h4><?= $product['title'] ?></h4>
+                            </div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+
 
 
             </div>
@@ -170,8 +173,10 @@ $products = $_SESSION['products'];
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            Copyright &copy;<script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
                 <!-- Single Widget Area -->
