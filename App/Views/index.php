@@ -1,6 +1,11 @@
 <?php 
 require_once "../core.php";
-$products = getAllProducts();
+if (!isset($_SESSION['products'])) {
+    $_SESSION['products'] = getAllProducts();
+}
+
+$products = $_SESSION['products'];
+
 ?>
 
 
