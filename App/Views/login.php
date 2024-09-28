@@ -16,7 +16,7 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form action = "../auth.php" method = 'POST'>
         <h3>Login</h3>
 
         <label for="email">Email</label>
@@ -26,15 +26,13 @@
         <input type="password" placeholder="Password" name="password" id="password">
 
         <label for="remember">
-            <input type="checkbox" id="remember" style="margin-right: 8px;"> Remember Me
+            <input type="checkbox" id="remember" name = "remember" style="margin-right: 8px;"> Remember Me
         </label>
 
-
-        <button>Log In</button>
+        <button type = "submit" name = "log_user">Log In</button>
 
         <div class="center">
             <p>Don't have an account ? <a href="signup.php" class="link-text">Register</a></p>
-
         </div>
 
     </form>

@@ -6,7 +6,7 @@ function connectToDatabase()
     
     $database = "playground_db";
     $user = "root";
-    $password = "";
+    $password = "Cyberboy@5";
     $host = "localhost";
     
 
