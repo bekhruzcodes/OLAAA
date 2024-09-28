@@ -1,6 +1,6 @@
 <?php 
 
-require_once 'core.php'; //ujsdhfuisdhf
+require_once 'core.php'; 
 
 function loginUser($email, $password) {
     $conn = connectToDatabase();
