@@ -5,6 +5,7 @@ $products = null;
 
 if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
     $products = $_SESSION['products'];
+    unset($_SESSION['products']);
 }else{
     $products = getAllProducts();
 }
@@ -25,7 +26,7 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
     <!-- Title  -->
     <title>OLAAA</title>
 
-    <!-- Favicon  -->a
+    <!-- Favicon  -->
      
     <link rel="icon" href="../../Public/img/core-img/favicon.ico">
 
@@ -45,7 +46,7 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
             <div class="row">
                 <div class="col-12">
                     <div class="search-content">
-                        <form action="../core.php" method="get">
+                        <form action="" method="GET">
                             <input type="text" name="search_inp" id="search" placeholder="Type your keyword...">
                             <button type="submit" name="search"><img src="../../Public/img/core-img/search.png" alt=""></button>
                         </form>
