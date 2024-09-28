@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 define("ERROR_FILE", "../errors.txt");
 
 
@@ -147,4 +149,21 @@ if(isset($_GET['search']) && !empty($_GET['search_inp'])){
     $pattern = $_GET['search_inp'];
     $products = getSearchedProducts($pattern);
     $_SESSION['products'] = $products; 
+}
+
+
+if (isset($_GET['single_id'])) {
+    $id = $_GET['single_id'];
+ 
+        $products = getAllProducts();
+        
+        foreach ($products as $product) {
+
+            if ($product['id'] == $id) {
+                $_SESSION['single_product'] = $product;
+                header("Location: Views/product-details.php");
+                exit();
+            }
+        }
+  
 }

@@ -1,7 +1,6 @@
 <?php
-session_start();
+
 require_once "../core.php";
-$products = null;
 
 if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
     $products = $_SESSION['products'];
@@ -9,6 +8,7 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
 }else{
     $products = getAllProducts();
 }
+
 
 ?>
 
