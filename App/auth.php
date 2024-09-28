@@ -9,13 +9,10 @@ function loginUser($email, $password) {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        // Start session and store user data
-        session_start();
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_role'] = $user['role']; // Assuming you have a role field
-        return true; // Successful login
+      
+        
     }
-    return false; // Failed login
+    return false; // manaa ushaaa comment
 }
 
 function registerUser($email, $password) {
