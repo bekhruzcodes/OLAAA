@@ -1,6 +1,7 @@
-<?php
-require_once "index.php";
-$products = [];
+
+<?php 
+require_once "core.php";
+$products = getAllProducts();
 ?>
 
 

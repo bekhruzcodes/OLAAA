@@ -21,6 +21,30 @@ function connectToDatabase(){
     }
 }
 
+function getAllProducts() {
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return [];  
+    }
+
+    try {
+    
+        $sql = "SELECT * FROM listings";
+        $stmt = $conn->query($sql);
+
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;  
+    } catch (PDOException $e) {
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select all products: " . $e->getMessage() . "\n\n";
+        file_put_contents('errors.txt', $errorMessage, FILE_APPEND);
+
+        return []; 
+    }
+}
+
+
 
 ?>
 
