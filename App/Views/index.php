@@ -1,3 +1,9 @@
+<?php 
+require_once "core.php";
+$products = getAllProducts();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
