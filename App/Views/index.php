@@ -38,7 +38,7 @@ $products = getAllProducts();
                     <div class="search-content">
                         <form action="#" method="get">
                             <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="../../Public/img/core-img/search.png" alt=""></button>
+                            <button type="submit"><img src="../../Public/img/core-img/search.png" alt="png"></button>
                         </form>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ $products = getAllProducts();
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.php"><img src="../../Public/img/core-img/logo.png" alt=""></a>
+                <a href="index.php"><img src="../../Public/img/core-img/logo.png" alt="png"></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -110,8 +110,7 @@ $products = getAllProducts();
                 <!-- Single Catagory -->
                 <div class="single-products-catagory clearfix">
                     <a href="product-details.php">
-                        <img src="../../Public/img/bg-img/1.jpg" alt="">
-                        <!-- Hover Content -->
+                    <img src="../../Public/img/bg-img/1.jpg" alt="">
                         <div class="hover-content">
                             <div class="line"></div>
                             <p>From $180</p>
@@ -161,7 +160,7 @@ $products = getAllProducts();
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="index.php"><img src="../../Public/img/core-logo2.png" alt=""></a>
+                            <a href="index.php"><img src="../../Public/img/core-logo2.png" alt="png"></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
