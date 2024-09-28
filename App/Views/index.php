@@ -25,7 +25,8 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
     <!-- Title  -->
     <title>OLAAA</title>
 
-    <!-- Favicon  -->
+    <!-- Favicon  -->a
+     
     <link rel="icon" href="../../Public/img/core-img/favicon.ico">
 
     <!-- Core Style CSS -->
@@ -45,8 +46,8 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
                 <div class="col-12">
                     <div class="search-content">
                         <form action="../core.php" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit" name="search_inp"><img src="../../Public/img/core-img/search.png" alt=""></button>
+                            <input type="text" name="search_inp" id="search" placeholder="Type your keyword...">
+                            <button type="submit" name="search"><img src="../../Public/img/core-img/search.png" alt=""></button>
                         </form>
                     </div>
                 </div>
