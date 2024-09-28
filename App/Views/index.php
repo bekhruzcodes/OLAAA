@@ -1,6 +1,5 @@
-
 <?php 
-require_once "core.php";
+require_once "../core.php";
 $products = getAllProducts();
 ?>
 
@@ -110,7 +109,7 @@ $products = getAllProducts();
 
                 <!-- Single Catagory -->
                 <div class="single-products-catagory clearfix">
-                    <a href="shop.php">
+                    <a href="product-details.php">
                         <img src="../../Public/img/bg-img/1.jpg" alt="">
                         <!-- Hover Content -->
                         <div class="hover-content">
