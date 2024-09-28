@@ -11,11 +11,11 @@ function loginUser($email, $password) {
     if ($user && password_verify($password, $user['password'])) {
         session_start();
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_role'] = $user['role']; // Assuming you have a role field
-        return true; // Successful login
+        $_SESSION['user_role'] = $user['role'];
+        return true; 
         
     }
-    return false; // manaa ushaaa comment
+    return false; 
 }
 
 function registerUser($email, $password) {
