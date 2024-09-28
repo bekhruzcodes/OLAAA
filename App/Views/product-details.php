@@ -1,3 +1,26 @@
+<?php
+
+session_start();
+
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
+
+$products = $_SESSION['products'];
+// if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
+//     $products = $_SESSION['products'];
+// } else {
+//     $products = [
+//         'price' => 'Price not available',
+//         'title' => 'Product not available'
+//     ];
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +32,10 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Amado - Furniture Ecommerce Template | Product Details</title>
+    <title>OLAAA</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="../../Public/img/core-img/favicon.ico">
 
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="../../Public/css/core-style.css">
@@ -89,9 +112,9 @@
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                <a href="https://github.com/bekhruzcodes/OLAAA"><i class="fa fa-github" aria-hidden="true"></i></a>
+                <a href="https://www.instagram.com/ilhomov_oo7/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <a href="https://t.me/isabekoff_coder"><i class="fa fa-telegram" aria-hidden="true"></i></a>
                 <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
             </div>
         </header>
@@ -100,19 +123,6 @@
         <!-- Product Details Area Start -->
         <div class="single-product-area section-padding-100 clearfix">
             <div class="container-fluid">
-
-                <div class="row">
-                    <div class="col-12">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb mt-50">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Furniture</a></li>
-                                <li class="breadcrumb-item"><a href="#">Chairs</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">white modern chair</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col-12 col-lg-7">
@@ -131,7 +141,10 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <a class="gallery_img" href="img/product-img/pro-big-1.jpg">
-                                            <img class="d-block w-100" src="../../Public/img/product-img/pro-big-1.jpg" alt="First slide">
+                                            <img class="d-block w-100" src="https://i.pinimg.com/236x/73/29/7e/73297eb0f2ac963257acf8220efb85f5.jpg"
+                                            
+                                            behruz aka wetga id tutib olib rasmini qoyasz
+                                            alt="First slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
@@ -158,9 +171,10 @@
                             <!-- Product Meta Data -->
                             <div class="product-meta-data">
                                 <div class="line"></div>
-                                <p class="product-price">$180</p>
+                                <form action="product-details.php"></form>
+                                <p class="product-price">$<?= $products[0]['price'] ?></p>
                                 <a href="product-details.php">
-                                    <h6>White Modern Chair</h6>
+                                    <h6><?= $products[0]['title'] ?></h6>
                                 </a>
                                 <!-- Ratings & Review -->
                                 <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
@@ -243,8 +257,10 @@
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            Copyright &copy;<script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
                 <!-- Single Widget Area -->
