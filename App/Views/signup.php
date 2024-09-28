@@ -12,7 +12,7 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form action = "../auth.php" method = "POST">
         <h3>Register</h3>
 
         <label for="name">Full Name</label>
@@ -24,11 +24,10 @@
         <label for="password">Password</label>
         <input type="password" placeholder="Password" name="password" id="password" required>
 
-        <button type="submit">Register</button>
+        <button type="submit" name = "sign_user">Register</button>
 
         <div class="center">
             <p>Already have an account ? <a href="login.php" class="link-text">Login</a></p>
-
         </div>
 
     </form>
