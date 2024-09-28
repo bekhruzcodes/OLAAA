@@ -7,14 +7,8 @@ print_r($_SESSION);
 echo '</pre>';
 
 $products = $_SESSION['products'];
-// if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
-//     $products = $_SESSION['products'];
-// } else {
-//     $products = [
-//         'price' => 'Price not available',
-//         'title' => 'Product not available'
-//     ];
 
+$product = [];
 
 ?>
 
