@@ -1,14 +1,15 @@
 <?php
 define("ERROR_FILE", "../errors.txt");
 
+
 function connectToDatabase()
 {
-    
+
     $database = "playground_db";
     $user = "root";
     $password = "Kenc1k06";
     $host = "localhost";
-    
+
 
     try {
 
@@ -22,9 +23,9 @@ function connectToDatabase()
     }
 }
 
+
 function getAllProducts()
 {
-    
     $conn = connectToDatabase();
 
     if ($conn === null) {
@@ -51,18 +52,92 @@ function getAllProducts()
                 ON 
                     categories.category_id = listings.category_id 
                 WHERE 
-                    listings.status != 'inactive'; ";
+                    listings.status != 'inactive';";
 
 
-        $stmt = $conn->query($sql);
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
 
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $products;
     } catch (PDOException $e) {
-        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select all products: " . $e->getMessage() . "\n\n";
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL products: " . $e->getMessage() . "\n\n";
         file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
 }
+
+
+
+function filterByWord($products, $word) {
+    return array_filter($products, function($product) use ($word) {
+        $word = strtolower($word);
+        return stripos($product['title'], $word) !== false ||
+               stripos($product['about'], $word) !== false ||
+               stripos($product['location'], $word) !== false;
+    });
+}
+
+
+function filterByLastWeek($products, $weekDate) {
+    $weekDate = new DateTime($weekDate);
+    $weekDate->modify('-7 days'); 
+
+    return array_filter($products, function($product) use ($weekDate) {
+        $productDate = new DateTime($product['time']);
+        return $productDate >= $weekDate;
+    });
+}
+
+function sortByDateDesc($products) {
+    usort($products, function($a, $b) {
+        return strtotime($b['time']) - strtotime($a['time']);
+    });
+    return $products;
+}
+
+
+function filterByPriceRange($products, $minPrice = null, $maxPrice = null) {
+    return array_filter($products, function($product) use ($minPrice, $maxPrice) {
+        $price = $product['price'];
+        if (!is_null($minPrice) && $price < $minPrice) return false;
+        if (!is_null($maxPrice) && $price > $maxPrice) return false;
+        return true;
+    });
+}
+
+
+function getSearchedProducts($pattern = "", $date = false, $priceRange = null)
+{
+    
+    if (empty($pattern) && !$date && empty($priceRange)) {
+        return []; 
+    }
+
+    
+    if (!isset($_SESSION['products']) || empty($_SESSION['products'])) {
+        $_SESSION['products'] = getAllProducts();
+    }
+
+    $products = $_SESSION['products'];
+
+
+    if (!empty($pattern)) {
+        $products = filterByWord($products, $pattern);
+    }
+
+    if ($date) {
+        $products = sortByDateDesc($products);
+    }
+
+    if (!empty($priceRange) && is_array($priceRange)) {
+        $minPrice = isset($priceRange['min']) ? $priceRange['min'] : null;
+        $maxPrice = isset($priceRange['max']) ? $priceRange['max'] : null;
+        $products = filterByPriceRange($products, $minPrice, $maxPrice);
+    }
+
+    return $products;
+}
+
