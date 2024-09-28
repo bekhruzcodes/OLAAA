@@ -7,7 +7,7 @@ function connectToDatabase()
 
     $database = "playground_db";
     $user = "root";
-    $password = "Kenc1k06";
+    $password = "";
     $host = "localhost";
 
 
@@ -141,3 +141,11 @@ function getSearchedProducts($pattern = "", $date = false, $priceRange = null)
     return $products;
 }
 
+
+
+if(isset($_GET['search']) && !empty($_GET['search_inp'])){
+    $pattern = $_GET['search_inp'];
+    $_SESSION['products'] = getSearchedProducts($pattern);
+    header('location:Views/index.php');
+    exit();
+}

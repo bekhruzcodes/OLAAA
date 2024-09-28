@@ -1,8 +1,12 @@
 <?php
 session_start();
 require_once "../core.php";
-$products = getAllProducts();
-$_SESSION ['products'] = $products;
+$products = null;
+if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
+    $products = $_SESSION['products'];
+}else{
+    $products = getAllProducts();
+}
 
 ?>
 
@@ -115,7 +119,7 @@ $_SESSION ['products'] = $products;
                 <?php foreach ($products as $product): ?>
                     <div class="single-products-catagory clearfix">
                         <a href="../core.php?single_id=<?= $product['id']?>">
-                            <img src="<?= $product['image'] ?>" alt="">
+                            <img src="<?= $product['image'] ?>" alt="png">
                             <div class="hover-content">
                                 <div class="line"></div>
                                 <p>From $<?= $product['price'] ?></p>
