@@ -46,7 +46,8 @@ function getAllProducts()
                     listings.image_url as 'image', 
                     listings.created_at as 'time', 
                     listings.location, 
-                    listings.status
+                    listings.status,
+                    listings.quantity
                 FROM 
                     listings 
                 LEFT JOIN 
@@ -204,4 +205,34 @@ function GetCategorie(){
         return [];
     }
 
+}
+
+function add_category(){
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $category_name = $_POST['category_name'];
+        $description = $_POST['description'];
+    
+        $host = "localhost";
+        $username = "root";
+        $password = "Kenc1k06";
+        $database = "playground_db";
+    
+        $connection = new mysqli($host, $username, $password, $database);
+    
+        if ($connection->connect_error) {
+            die("Connection failed: " . $connection->connect_error);
+        }
+    
+        $stmt = $connection->prepare("INSERT INTO categories (category_name, description) VALUES (?, ?)");
+        $stmt->bind_param("ss", $category_name, $description);
+    
+        if ($stmt->execute()) {
+            echo "<div class='alert alert-success'>Category added successfully!</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
+        }
+    
+        $stmt->close();
+        $connection->close();
+    }
 }

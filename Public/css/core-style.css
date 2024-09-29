@@ -1398,3 +1398,33 @@ img {
 /* ##### The End ##### */
 
 /*# sourceMappingURL=core-style.css.map */
+.pagination-area {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination-area a {
+  margin: 0 5px;
+  padding: 10px 15px;
+  color: #333;
+  background-color: #f1f1f1;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  border-radius: 3px;
+}
+
+.pagination-area a.active {
+  background-color: #333;
+  color: white;
+}
+
+.pagination-area a:hover {
+  background-color: #ddd;
+}
+
+.pagination-area a.prev,
+.pagination-area a.next {
+  font-weight: bold;
+}
+
+

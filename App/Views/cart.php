@@ -1,3 +1,38 @@
+<?php
+
+// session_start();
+
+include "../core.php";
+
+$conn = connectToDatabase();
+
+// Initialize the cart in the session if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+    $productId = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    echo $productId . "<br>";
+    echo $quantity;
+
+    // Check if the product is already in the cart
+    if (isset($_SESSION['cart'][$productId])) {
+        // If it is, update the quantity
+        $_SESSION['cart'][$productId] += $quantity;
+        
+    } else {
+        // Otherwise, add it to the cart
+        $_SESSION['cart'][$productId] = $quantity;
+    }
+    echo "<pre>";
+    print_r($_SESSION['cart']);
+    echo  "</pre>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,15 +102,9 @@
                 <a href="index.php"><img src="../../Public/img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Amado Nav -->
-            <nav class="amado-nav">
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="shop.php">Shop</a></li>
-                    <li><a href="product-details.php">Product</a></li>
-                    <li class="active"><a href="cart.php">Cart</a></li>
-                    <li><a href="checkout.php">Checkout</a></li>
-                </ul>
-            </nav>
+            <?php
+            include "../components/nav.php";
+            ?>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 <a href="#" class="btn amado-btn mb-15">%Discount%</a>
@@ -112,85 +141,61 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="../../Public/img/bg-img/cart1.jpg" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>White Modern Chair</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>$130</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="../../Public/img/bg-img/cart2.jpg" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>Minimal Plant Pot</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>$10</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty2" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="../../Public/img/bg-img/cart3.jpg" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>Minimal Plant Pot</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>$10</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty3" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    // Assume $conn is already established
+
+                                    $totalPrice = 0;
+                                    if (!empty($_SESSION['cart'])) {
+                                        $productIds = array_keys($_SESSION['cart']);
+                                        $placeholders = implode(',', array_fill(0, count($productIds), '?'));
+
+                                        $query = "SELECT listing_id, title, price, image_url FROM listings WHERE id IN ($placeholders)";
+                                        $stmt = $conn->prepare($query);
+
+                                        if ($stmt) {
+                                            $stmt->bind_param(str_repeat('i', count($productIds)), ...$productIds);
+                                            $stmt->execute();
+                                            $result = $stmt->get_result();
+
+                                            while ($product = $result->fetch_assoc()) {
+                                                $quantity = $_SESSION['cart'][$product['listing_id']]; // Change 'id' to 'listing_id'
+                                                $totalPrice += $product['price'] * $quantity;
+
+                                                // Output product details here
+                                                echo "<tr>";
+                                                echo "<td class='cart_product_img'><a href='#'><img src='" . htmlspecialchars($product['image_url']) . "' alt='Product'></a></td>"; // Change 'image' to 'image_url'
+                                                echo "<td class='cart_product_desc'><h5>" . htmlspecialchars($product['title']) . "</h5></td>"; // Change 'name' to 'title'
+                                                echo "<td class='price'><span>$" . number_format($product['price'], 2) . "</span></td>";
+                                                echo "<td class='qty'><p>" . $quantity . "</p></td>";
+                                                echo "</tr>";
+                                            }
+
+
+                                            $stmt->close();
+                                        } else {
+                                            // Handle error
+                                            error_log("Failed to prepare statement: " . $conn->error);
+                                        }
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="cart-summary">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>$140.00</span></li>
+                                <li><span>subtotal:</span> <span>$<?php echo number_format($totalPrice, 2); ?></span></li>
                                 <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>$140.00</span></li>
+                                <li><span>total:</span> <span>$<?php echo number_format($totalPrice, 2); ?></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
-                                <a href="cart.php" class="btn amado-btn w-100">Checkout</a>
+                                <a href="checkout.php" class="btn amado-btn w-100">Checkout</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -224,7 +229,7 @@
     <!-- ##### Newsletter Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
-     <?php  include "../components/footer.php" ?>
+    <?php include "../components/footer.php" ?>
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->

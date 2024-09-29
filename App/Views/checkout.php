@@ -67,15 +67,9 @@
                 <a href="index.php"><img src="../../Public/img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Amado Nav -->
-            <nav class="amado-nav">
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="shop.php">Shop</a></li>
-                    <li><a href="product-details.php">Product</a></li>
-                    <li><a href="cart.php">Cart</a></li>
-                    <li class="active"><a href="checkout.php">Checkout</a></li>
-                </ul>
-            </nav>
+             <?php
+            include "../components/nav.php";
+            ?>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 <a href="#" class="btn amado-btn mb-15">%Discount%</a>
