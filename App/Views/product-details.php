@@ -1,14 +1,6 @@
 <?php
-
-session_start();
-
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
-
-$products = $_SESSION['products'];
-
-$product = [];
+include_once "../core.php";
+$product = $_SESSION['single_product'];
 
 ?>
 
@@ -123,19 +115,19 @@ $product = [];
                         <div class="single_product_thumb">
                             <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(img/product-img/pro-big-1.jpg);">
+                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(<?=$product['image']?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(img/product-img/pro-big-2.jpg);">
+                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(<?=$product['image']?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url(img/product-img/pro-big-3.jpg);">
+                                    <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url(<?=$product['image']?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="3" style="background-image: url(img/product-img/pro-big-4.jpg);">
+                                    <li data-target="#product_details_slider" data-slide-to="3" style="background-image: url(<?=$product['image']?>);">
                                     </li>
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <a class="gallery_img" href="img/product-img/pro-big-1.jpg">
-                                            <img class="d-block w-100" src="https://i.pinimg.com/236x/73/29/7e/73297eb0f2ac963257acf8220efb85f5.jpg"
+                                            <img class="d-block w-100" src="<?=$product['image']?>"
                                             
                                             behruz aka wetga id tutib olib rasmini qoyasz
                                             alt="First slide">
@@ -143,17 +135,17 @@ $product = [];
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-2.jpg">
-                                            <img class="d-block w-100" src="../../Public/img/product-img/pro-big-2.jpg" alt="Second slide">
+                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Second slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-3.jpg">
-                                            <img class="d-block w-100" src="../../Public/img/product-img/pro-big-3.jpg" alt="Third slide">
+                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Third slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-4.jpg">
-                                            <img class="d-block w-100" src="../../Public/img/product-img/pro-big-4.jpg" alt="Fourth slide">
+                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Fourth slide">
                                         </a>
                                     </div>
                                 </div>
@@ -166,9 +158,9 @@ $product = [];
                             <div class="product-meta-data">
                                 <div class="line"></div>
                                 <form action="product-details.php"></form>
-                                <p class="product-price">$<?= $products[0]['price'] ?></p>
+                                <p class="product-price">$<?= $product['price'] ?></p>
                                 <a href="product-details.php">
-                                    <h6><?= $products[0]['title'] ?></h6>
+                                    <h6><?= $product['title'] ?></h6>
                                 </a>
                                 <!-- Ratings & Review -->
                                 <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
@@ -184,11 +176,11 @@ $product = [];
                                     </div>
                                 </div>
                                 <!-- Avaiable -->
-                                <p class="avaibility"><i class="fa fa-circle"></i> In Stock</p>
+                                <p class="avaibility"><i class="fa fa-circle"></i> <?=$product['status']?></p>
                             </div>
 
                             <div class="short_overview my-5">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid quae eveniet culpa officia quidem mollitia impedit iste asperiores nisi reprehenderit consequatur, autem, nostrum pariatur enim?</p>
+                                <p><?=$product['about']?></p>
                             </div>
 
                             <!-- Add to Cart Form -->

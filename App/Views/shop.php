@@ -1,3 +1,32 @@
+<?php 
+require_once '../core.php';  
+$categories =GetCategorie();
+
+
+// Check if category ID is passed in the URL
+if (isset($_GET['category_id'])) {
+    $categoryId = $_GET['category_id'];
+
+    // Query to get products based on the selected category
+    $products = getProductsByCategoryId($categoryId); // You need to implement this function
+
+    // Display the products here
+    // foreach ($products as $product) {
+    //     // Example of how to display the product
+    //     echo "<div class='product'>";
+    //     echo "<h3>" . $product['product_name'] . "</h3>";
+    //     echo "<p>Price: " . $product['price'] . "</p>";
+    //     echo "</div>";
+    // }
+} else {
+    // If no category is selected, show all products or a default category
+    // $products = getAllProducts(); // Implement this function to get all products
+
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -105,71 +134,21 @@
                 <h6 class="widget-title mb-30">Catagories</h6>
 
                 <!--  Catagories  -->
-                <div class="catagories-menu">
-                    <ul>
-                        <li class="active"><a href="#">Chairs</a></li>
-                        <li><a href="#">Beds</a></li>
-                        <li><a href="#">Accesories</a></li>
-                        <li><a href="#">Furniture</a></li>
-                        <li><a href="#">Home Deco</a></li>
-                        <li><a href="#">Dressings</a></li>
-                        <li><a href="#">Tables</a></li>
-                    </ul>
-                </div>
+                <!-- Catagories Menu -->
+            <div class="catagories-menu">
+                <ul>
+                    <?php foreach($categories as $category){ ?>
+                        <!-- Add category ID as query parameter -->
+                        <li><a href="shop.php?category_id=<?= $category['category_id'] ?>"><?= $category['category_name'] ?></a></li>
+                    <?php } ?>
+                </ul>
             </div>
 
-            <!-- ##### Single Widget ##### -->
-            <div class="widget brands mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Brands</h6>
-
-                <div class="widget-desc">
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="amado">
-                        <label class="form-check-label" for="amado">Amado</label>
-                    </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="ikea">
-                        <label class="form-check-label" for="ikea">Ikea</label>
-                    </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="furniture">
-                        <label class="form-check-label" for="furniture">Furniture Inc</label>
-                    </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="factory">
-                        <label class="form-check-label" for="factory">The factory</label>
-                    </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="artdeco">
-                        <label class="form-check-label" for="artdeco">Artdeco</label>
-                    </div>
-                </div>
             </div>
 
-            <!-- ##### Single Widget ##### -->
-            <div class="widget color mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Color</h6>
 
-                <div class="widget-desc">
-                    <ul class="d-flex">
-                        <li><a href="#" class="color1"></a></li>
-                        <li><a href="#" class="color2"></a></li>
-                        <li><a href="#" class="color3"></a></li>
-                        <li><a href="#" class="color4"></a></li>
-                        <li><a href="#" class="color5"></a></li>
-                        <li><a href="#" class="color6"></a></li>
-                        <li><a href="#" class="color7"></a></li>
-                        <li><a href="#" class="color8"></a></li>
-                    </ul>
-                </div>
-            </div>
+
+
 
             <!-- ##### Single Widget ##### -->
             <div class="widget price mb-50">
@@ -198,10 +177,6 @@
                             <!-- Total Products -->
                             <div class="total-products">
                                 <p>Showing 1-8 0f 25</p>
-                                <div class="view d-flex">
-                                    <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
-                                </div>
                             </div>
                             <!-- Sorting -->
                             <div class="product-sorting d-flex">
@@ -217,12 +192,12 @@
                                 </div>
                                 <div class="view-product d-flex align-items-center">
                                     <p>View</p>
-                                    <form action="#" method="get">
-                                        <select name="select" id="viewProduct">
-                                            <option value="value">12</option>
-                                            <option value="value">24</option>
-                                            <option value="value">48</option>
-                                            <option value="value">96</option>
+                                    <form action="" method="GET">
+                                        <select name="limit" id="viewProduct" onchange="this.form.submit()">
+                                            <option value="12" <?= (isset($_GET['limit']) && $_GET['limit'] == 12) ? 'selected' : '' ?>>12</option>
+                                            <option value="24" <?= (isset($_GET['limit']) && $_GET['limit'] == 24) ? 'selected' : '' ?>>24</option>
+                                            <option value="48" <?= (isset($_GET['limit']) && $_GET['limit'] == 48) ? 'selected' : '' ?>>48</option>
+                                            <option value="96" <?= (isset($_GET['limit']) && $_GET['limit'] == 96) ? 'selected' : '' ?>>96</option>
                                         </select>
                                     </form>
                                 </div>
@@ -381,81 +356,9 @@
                         </div>
                     </div>
 
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="../../Public/img/product-img/product5.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="../../Public/img/product-img/product6.jpg" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.php">
-                                        <h6>Modern Chair</h6>
-                                    </a>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="cart">
-                                        <a href="cart.php" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="../../Public/img/core-img/cart.png" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="../../Public/img/product-img/product6.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="../../Public/img/product-img/product1.jpg" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.php">
-                                        <h6>Modern Chair</h6>
-                                    </a>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="cart">
-                                        <a href="cart.php" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="../../Public/img/core-img/cart.png" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
+<!-- Pagination -->
                 <div class="row">
                     <div class="col-12">
                         <!-- Pagination -->
@@ -561,6 +464,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="../../Public/js/plugins.js"></script>
     <!-- Active js -->
     <script src="../../Public/js/active.js"></script>
+    
 
 </body>
 

@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 define("ERROR_FILE", "../errors.txt");
 
 
@@ -67,6 +69,19 @@ function getAllProducts()
 
         return [];
     }
+}
+
+function getProductsByCategoryId($categoryId) {
+    
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return [];
+    }
+
+    $stmt = $conn->prepare("SELECT * FROM listings WHERE category_id = ?");
+    $stmt->execute([$categoryId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
@@ -147,4 +162,46 @@ if(isset($_GET['search']) && !empty($_GET['search_inp'])){
     $pattern = $_GET['search_inp'];
     $products = getSearchedProducts($pattern);
     $_SESSION['products'] = $products; 
+}
+
+
+if (isset($_GET['single_id'])) {
+    $id = $_GET['single_id'];
+ 
+        $products = getAllProducts();
+        
+        foreach ($products as $product) {
+
+            if ($product['id'] == $id) {
+                $_SESSION['single_product'] = $product;
+                header("Location: Views/product-details.php");
+                exit();
+            }
+        }
+  
+}
+
+function GetCategorie(){
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return [];
+    }
+    try {
+
+        $sql = "SELECT * FROM categories";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        $catgories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $catgories;
+    } catch (PDOException $e) {
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL Catgories: " . $e->getMessage() . "\n\n";
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+
+        return [];
+    }
+
 }
