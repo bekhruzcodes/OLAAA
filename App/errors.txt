@@ -112,3 +112,5 @@
 
 [2024-09-29 01:22:01] No products found in session. 
 
+[2024-09-29 13:08:42] Database connection error: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+

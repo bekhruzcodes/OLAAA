@@ -64,7 +64,7 @@ if(isset($_POST['log_user'])){
         
         if($login){
             if(isset($_POST['remember'])){
-                rememberUser($email,$password);
+                rememberUser($email);
             }
             header("Location:Views/index.php");
             exit();
