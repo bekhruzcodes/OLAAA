@@ -9,7 +9,6 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
     $products = getAllProducts();
 }
 
-
 ?>
 
 
@@ -105,10 +104,9 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                <a href="https://t.me/isabekoff_coder" target = "_blank"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+                <a href="https://linkedin.com/in/ravshanbek-ilhomov-556220279" target = "_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                <a href="https://github.com/bekhruzcodes" target = "_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
             </div>
         </header>
         <!-- Header Area End -->
@@ -147,7 +145,8 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
                 <div class="col-12 col-lg-6 col-xl-7">
                     <div class="newsletter-text mb-100">
                         <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
+                        <p>We’re excited to offer you an exclusive 25% discount to make your experience with us even better. Whether you’re trying something new or coming back for more, now’s the perfect time to save.
+                        Don’t miss out – we can’t wait to see you enjoy this special offer!</p>
                     </div>
                 </div>
                 <!-- Newsletter Form -->
@@ -179,7 +178,9 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.</a>  <a href="https://themewagon.com/" target="_blank">
+                                </a>
+                                Creators: Bekhruzbek Mirzaliyev, Iskandar Isabekoff,Ilhomov Ravshanbek
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                     </div>
                 </div>
