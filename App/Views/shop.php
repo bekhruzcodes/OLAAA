@@ -71,8 +71,8 @@ if (isset($_GET['category_id'])) {
                 <div class="col-12">
                     <div class="search-content">
                         <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="../../Public/img/core-img/search.png" alt=""></button>
+                            <input type="search" name="search_inp" id="search" placeholder="Type your keyword...">
+                            <button type="submit" name="search"><img src="../../Public/img/core-img/search.png" alt=""></button>
                         </form>
                     </div>
                 </div>
@@ -107,15 +107,9 @@ if (isset($_GET['category_id'])) {
                 <a href="index.php"><img src="../../Public/img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Amado Nav -->
-            <nav class="amado-nav">
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li class="active"><a href="shop.php">Shop</a></li>
-                    <li><a href="product-details.php">Product</a></li>
-                    <li><a href="cart.php">Cart</a></li>
-                    <li><a href="checkout.php">Checkout</a></li>
-                </ul>
-            </nav>
+            <?php
+            include "../components/nav.php";
+            ?>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 <a href="#" class="btn amado-btn mb-15">%Discount%</a>
@@ -128,12 +122,8 @@ if (isset($_GET['category_id'])) {
                 <a href="#" class="search-nav"><img src="../../Public/img/core-img/search.png" alt=""> Search</a>
             </div>
             <!-- Social Button -->
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div>
+            <?php include "../components/links.php" ?>
+
         </header>
         <!-- Header Area End -->
 

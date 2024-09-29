@@ -1,2 +1,1 @@
-# OLAAA
-e-Commerce website for all types of products.
+Hullas biz shuncha narsani osonlikcha qilmadik ancha narsa qilib qoydik va bundan ham kop narsa qila olishimizga ishonamiz

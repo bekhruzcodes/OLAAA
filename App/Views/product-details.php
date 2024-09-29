@@ -2,6 +2,9 @@
 include_once "../core.php";
 $product = $_SESSION['single_product'];
 
+$search = getSearchedProducts();
+
+
 ?>
 
 
@@ -40,8 +43,8 @@ $product = $_SESSION['single_product'];
                 <div class="col-12">
                     <div class="search-content">
                         <form action="#" method="get">
-                            <input type="search" name="search" id="search" placeholder="Type your keyword...">
-                            <button type="submit"><img src="../../Public/img/core-img/search.png" alt=""></button>
+                            <input type="search" name="search_inp" id="search" placeholder="Type your keyword...">
+                            <button type="submit" name="search"><img src="../../Public/img/core-img/search.png" alt=""></button>
                         </form>
                     </div>
                 </div>
@@ -76,15 +79,9 @@ $product = $_SESSION['single_product'];
                 <a href="index.php"><img src="../../Public/img/core-img/logo.png" alt=""></a>
             </div>
             <!-- Amado Nav -->
-            <nav class="amado-nav">
-                <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="shop.php">Shop</a></li>
-                    <li class="active"><a href="product-details.php">Product</a></li>
-                    <li><a href="cart.php">Cart</a></li>
-                    <li><a href="checkout.php">Checkout</a></li>
-                </ul>
-            </nav>
+            <?php
+            include "../components/nav.php";
+            ?>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-100">
                 <a href="#" class="btn amado-btn mb-15">%Discount%</a>
@@ -115,37 +112,37 @@ $product = $_SESSION['single_product'];
                         <div class="single_product_thumb">
                             <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(<?=$product['image']?>);">
+                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(<?= $product['image'] ?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(<?=$product['image']?>);">
+                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(<?= $product['image'] ?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url(<?=$product['image']?>);">
+                                    <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url(<?= $product['image'] ?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="3" style="background-image: url(<?=$product['image']?>);">
+                                    <li data-target="#product_details_slider" data-slide-to="3" style="background-image: url(<?= $product['image'] ?>);">
                                     </li>
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <a class="gallery_img" href="img/product-img/pro-big-1.jpg">
-                                            <img class="d-block w-100" src="<?=$product['image']?>"
-                                            
-                                            behruz aka wetga id tutib olib rasmini qoyasz
-                                            alt="First slide">
+                                            <img class="d-block w-100" src="<?= $product['image'] ?>"
+
+                                                behruz aka wetga id tutib olib rasmini qoyasz
+                                                alt="First slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-2.jpg">
-                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Second slide">
+                                            <img class="d-block w-100" src="<?= $product['image'] ?>" alt="Second slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-3.jpg">
-                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Third slide">
+                                            <img class="d-block w-100" src="<?= $product['image'] ?>" alt="Third slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-4.jpg">
-                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Fourth slide">
+                                            <img class="d-block w-100" src="<?= $product['image'] ?>" alt="Fourth slide">
                                         </a>
                                     </div>
                                 </div>
@@ -176,24 +173,19 @@ $product = $_SESSION['single_product'];
                                     </div>
                                 </div>
                                 <!-- Avaiable -->
-                                <p class="avaibility"><i class="fa fa-circle"></i> <?=$product['status']?></p>
+                                <p class="avaibility"><i class="fa fa-circle"></i> <?= $product['status'] ?></p>
                             </div>
 
                             <div class="short_overview my-5">
-                                <p><?=$product['about']?></p>
+                                <p><?= $product['about'] ?></p>
                             </div>
 
                             <!-- Add to Cart Form -->
-                            <form class="cart clearfix" method="post">
-                                <div class="cart-btn d-flex mb-50">
-                                    <p>Qty</p>
-                                    <div class="quantity">
-                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                                <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
+
+                            <form action="cart.php" method="post">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>"> <!-- Assuming you have the product ID -->
+                                <input type="number" name="quantity" value="1" min="1" max="300">
+                                <button type="submit" name="add_to_cart" class="btn amado-btn">Add to Cart</button>
                             </form>
 
                         </div>
@@ -231,57 +223,8 @@ $product = $_SESSION['single_product'];
     <!-- ##### Newsletter Area End ##### -->
 
     <!-- ##### Footer Area Start ##### -->
-    <footer class="footer_area clearfix">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Single Widget Area -->
-                <div class="col-12 col-lg-4">
-                    <div class="single_widget_area">
-                        <!-- Logo -->
-                        <div class="footer-logo mr-50">
-                            <a href="index.php"><img src="../../Public/img/core-img/logo2.png" alt=""></a>
-                        </div>
-                        <!-- Copywrite Text -->
-                        <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>
-                                document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div>
-                </div>
-                <!-- Single Widget Area -->
-                <div class="col-12 col-lg-8">
-                    <div class="single_widget_area">
-                        <!-- Footer Menu -->
-                        <div class="footer_menu">
-                            <nav class="navbar navbar-expand-lg justify-content-end">
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                                <div class="collapse navbar-collapse" id="footerNavContent">
-                                    <ul class="navbar-nav ml-auto">
-                                        <li class="nav-item active">
-                                            <a class="nav-link" href="index.php">Home</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="shop.php">Shop</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="product-details.php">Product</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="cart.php">Cart</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="checkout.php">Checkout</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+
+    <?php include "../components/footer.php" ?>
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
