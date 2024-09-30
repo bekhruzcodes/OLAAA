@@ -11,18 +11,20 @@ function connectToDatabase()
     $user = "root";
     $password = "Kenc1k06";
     $host = "localhost";
-
-
+    
     try {
-
-        $conn = new PDO("mysql:host=$host;dbname=$database", $user, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn = new mysqli($host, $user, $password, $database);
+        if ($conn->connect_error) {
+            throw new Exception("Connection failed: " . $conn->connect_error);
+        }
+    
         return $conn;
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Database connection error: " . $e->getMessage() . "\n\n";
-        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents('error_log.txt', $errorMessage, FILE_APPEND);
         return null;
     }
+    
 }
 
 
@@ -35,7 +37,6 @@ function getAllProducts()
     }
 
     try {
-
         $sql = "SELECT 
                     listings.listing_id as 'id', 
                     listings.seller_id as 'seller_id', 
@@ -57,20 +58,22 @@ function getAllProducts()
                 WHERE 
                     listings.status != 'inactive';";
 
-
         $stmt = $conn->prepare($sql);
         $stmt->execute();
+        $result = $stmt->get_result(); // Fetch the result set
 
-        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Fetch all products as associative array
+        $products = $result->fetch_all(MYSQLI_ASSOC);
 
         return $products;
-    }catch (PDOException $e) {
+    } catch (Exception $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL products: " . $e->getMessage() . "\n\n";
         file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
 }
+
 
 function getProductsByCategoryId($categoryId) {
 
@@ -100,7 +103,7 @@ function getProductsByCategoryId($categoryId) {
         $stmt = $conn->prepare($sql);
         $stmt->execute([$categoryId]);
         
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(MYSQLI_ASSOC);
     } catch (PDOException $e) {
         // Log error message to a file or handle it as needed
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error: " . $e->getMessage() . "\n\n";
@@ -222,7 +225,7 @@ function GetCategorie(){
         $stmt = $conn->prepare($sql);
         $stmt->execute();
 
-        $catgories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $catgories = $stmt->fetch(MYSQLI_ASSOC);
 
         return $catgories;
     } catch (PDOException $e) {

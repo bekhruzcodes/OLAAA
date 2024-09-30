@@ -1,6 +1,9 @@
 <?php
 
 require_once "../core.php";
+// echo"<pre>";
+// print_r($_SESSION['cart']);
+// echo"</pre>";
 
 if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
     $products = $_SESSION['products'];
@@ -103,7 +106,7 @@ $search = getSearchedProducts();
         <!-- Header Area End -->
 
         <!-- Product Catagories Area Start -->
-        <div class="products-catagories-area clearfix">
+        <div class="products-catagories-area clearfix mt-5">
             <div class="amado-pro-catagory clearfix">
 
                 <!-- Single Catagory -->

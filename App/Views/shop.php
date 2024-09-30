@@ -173,9 +173,9 @@ $start = ($page - 1) * $limit;
                     <div class="col-12">
                         <div class="product-topbar d-xl-flex align-items-end justify-content-between">
                             <!-- Total Products -->
-                            <div class="total-products">
+                            <!-- <div class="total-products">
                                 <p>Showing <?= ($start + 1) ?>-<?= min($start + $limit, $totalProducts) ?> of <?= $totalProducts ?></p>
-                            </div>
+                            </div> -->
                             <!-- Sorting -->
                             <div class="product-sorting d-flex">
                                 <div class="sort-by-date d-flex align-items-center mr-15">
@@ -260,18 +260,18 @@ $start = ($page - 1) * $limit;
                 <a class="page-link" href="?page=<?= $page - 1 ?>&limit=<?= $limit ?>&min_price=<?= $minPrice ?>&max_price=<?= $maxPrice ?>"><<</a>
             </li>
         <?php endif; ?>
-
+<!-- 
         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
             <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
                 <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>&min_price=<?= $minPrice ?>&max_price=<?= $maxPrice ?>"><?= $i ?></a>
             </li>
-        <?php endfor; ?>
+        <?php endfor; ?> -->
 
-        <?php if ($page < $totalPages): ?>
+        <!-- <?php if ($page < $totalPages): ?>
             <li class="page-item">
                 <a class="page-link" href="?page=<?= $page + 1 ?>&limit=<?= $limit ?>&min_price=<?= $minPrice ?>&max_price=<?= $maxPrice ?>">>></a>
             </li>
-        <?php endif; ?>
+        <?php endif; ?> -->
     </ul>
 </nav>
 

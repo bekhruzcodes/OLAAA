@@ -1,36 +1,23 @@
 <?php
+require_once "../core.php";
 
-// session_start();
+echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
 
-include "../core.php";
 
 $conn = connectToDatabase();
 
-// Initialize the cart in the session if it doesn't exist
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
+$productIds = array_keys($_SESSION['cart']);
+$totalPrice = 0;
+
+if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+    echo "<p>Your cart is empty</p>";
+} else {
+    $productIds = array_keys($_SESSION['cart']);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
-    $productId = $_POST['product_id'];
-    $quantity = $_POST['quantity'];
 
-    echo $productId . "<br>";
-    echo $quantity;
-
-    // Check if the product is already in the cart
-    if (isset($_SESSION['cart'][$productId])) {
-        // If it is, update the quantity
-        $_SESSION['cart'][$productId] += $quantity;
-        
-    } else {
-        // Otherwise, add it to the cart
-        $_SESSION['cart'][$productId] = $quantity;
-    }
-    echo "<pre>";
-    print_r($_SESSION['cart']);
-    echo  "</pre>";
-}
 ?>
 
 <!DOCTYPE html>
@@ -112,7 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="cart.php" class="cart-nav"><img src="../../Public/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
+                <a href="cart.php" class="cart-nav"><img src="../../Public/img/core-img/cart.png" alt=""> Cart <span>(<?= count($_SESSION['cart']) ?>)</span></a>
+
+
                 <a href="#" class="fav-nav"><img src="../../Public/img/core-img/favorites.png" alt=""> Favourite</a>
                 <a href="#" class="search-nav"><img src="../../Public/img/core-img/search.png" alt=""> Search</a>
             </div>
@@ -121,6 +110,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
             <?php include "../components/links.php" ?>
         </header>
         <!-- Header Area End -->
+
+        <!-- <?php
+        // Start the session and include necessary files
+        // include "../core.php";
+        // $conn = connectToDatabase();
+
+        // // Initialize variables for product IDs in the cart
+        // $productIds = array_keys($_SESSION['cart']);
+        // $totalPrice = 0;
+
+        ?> -->
 
         <div class="cart-table-area section-padding-100">
             <div class="container-fluid">
@@ -138,68 +138,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
                                         <th>Name</th>
                                         <th>Price</th>
                                         <th>Quantity</th>
+                                        <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    // Assume $conn is already established
+                                    if (!empty($productIds)) {
+                                        // Convert product IDs to a string for the SQL query
+                                        $productIdsString = implode(',', array_map('intval', $productIds));
 
-                                    $totalPrice = 0;
-                                    if (!empty($_SESSION['cart'])) {
-                                        $productIds = array_keys($_SESSION['cart']);
-                                        $placeholders = implode(',', array_fill(0, count($productIds), '?'));
+                                        // Prepare the SQL query to get product details
+                                        $query = "SELECT listing_id, title, price, image_url FROM listings WHERE listing_id IN ($productIdsString)";
+                                        $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); // Debug SQL error if any
+                                        
 
-                                        $query = "SELECT listing_id, title, price, image_url FROM listings WHERE id IN ($placeholders)";
-                                        $stmt = $conn->prepare($query);
-
-                                        if ($stmt) {
-                                            $stmt->bind_param(str_repeat('i', count($productIds)), ...$productIds);
-                                            $stmt->execute();
-                                            $result = $stmt->get_result();
-
-                                            while ($product = $result->fetch_assoc()) {
-                                                $quantity = $_SESSION['cart'][$product['listing_id']]; // Change 'id' to 'listing_id'
-                                                $totalPrice += $product['price'] * $quantity;
-
-                                                // Output product details here
-                                                echo "<tr>";
-                                                echo "<td class='cart_product_img'><a href='#'><img src='" . htmlspecialchars($product['image_url']) . "' alt='Product'></a></td>"; // Change 'image' to 'image_url'
-                                                echo "<td class='cart_product_desc'><h5>" . htmlspecialchars($product['title']) . "</h5></td>"; // Change 'name' to 'title'
-                                                echo "<td class='price'><span>$" . number_format($product['price'], 2) . "</span></td>";
-                                                echo "<td class='qty'><p>" . $quantity . "</p></td>";
-                                                echo "</tr>";
+                                        // Fetch the results and display products in the cart
+                                        if ($result) {
+                                            while ($product = mysqli_fetch_assoc($result)) {
+                                                $productId = $product['listing_id'];
+                                                $quantity = $_SESSION['cart'][$productId];
+                                                $productTotal = $product['price'] * $quantity;
+                                                $totalPrice += $productTotal;
+                                    ?>
+                                                <tr>
+                                                    <td><img src="<?= $product['image_url'] ?>" alt="<?= $product['title'] ?>" style="width: 100px;"></td>
+                                                    <td><?= $product['title'] ?></td>
+                                                    <td>$<?= $product['price'] ?></td>
+                                                    <td><?= $quantity ?></td>
+                                                    <td>$<?= number_format($productTotal, 2) ?></td>
+                                                </tr>
+                                    <?php
                                             }
-
-
-                                            $stmt->close();
                                         } else {
-                                            // Handle error
-                                            error_log("Failed to prepare statement: " . $conn->error);
+                                            echo "<tr><td colspan='5'>No products in the cart.</td></tr>";
                                         }
+                                    } else {
+                                        echo "<tr><td colspan='5'>Your cart is empty.</td></tr>";
                                     }
                                     ?>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
+
+                    <!-- Cart Totals -->
                     <div class="col-12 col-lg-4">
                         <div class="cart-summary">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>$<?php echo number_format($totalPrice, 2); ?></span></li>
+                                <li><span>subtotal:</span> <span>$<?= number_format($totalPrice, 2) ?></span></li>
                                 <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>$<?php echo number_format($totalPrice, 2); ?></span></li>
+                                <li><span>total:</span> <span>$<?= number_format($totalPrice, 2) ?></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
                                 <a href="checkout.php" class="btn amado-btn w-100">Checkout</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
 

@@ -66,7 +66,7 @@ if(isset($_POST['log_user'])){
             if(isset($_POST['remember'])){
                 rememberUser($email);
             }
-            header("Location:Views/index.php");
+            header("Location: index.php");
             exit();
         }else{
             $errorMessage = "[" . date("Y-m-d H:i:s") . "] Erro While Logging In User: " . "\n\n";
