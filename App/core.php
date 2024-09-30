@@ -219,23 +219,23 @@ function GetCategorie(){
         return [];
     }
     try {
-
         $sql = "SELECT * FROM categories";
 
         $stmt = $conn->prepare($sql);
         $stmt->execute();
+        
+        $result = $stmt->get_result(); // Get the result set from the statement
+        $categories = $result->fetch_all(MYSQLI_ASSOC); // Fetch all categories as associative array
 
-        $catgories = $stmt->fetch(MYSQLI_ASSOC);
-
-        return $catgories;
+        return $categories; // Return the array of categories
     } catch (PDOException $e) {
-        $errorMessage = "[" . date("Y-m-d H:i:GetCategors") . "] SQL query error in select ALL Catgories: " . $e->getMessage() . "\n\n";
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL Categories: " . $e->getMessage() . "\n\n";
         file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
-
 }
+
 
 function add_category(){
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

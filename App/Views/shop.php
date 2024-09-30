@@ -6,7 +6,6 @@ error_reporting(E_ALL);
 require_once '../core.php';  
 $categories = GetCategorie();
 
-// Set default values for pagination and price filtering
 $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 4; // Default 12 products per page
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $start = ($page - 1) * $limit;
