@@ -93,9 +93,9 @@ CREATE TABLE `listings` (
 -- Dumping data for table `listings`
 --
 
-INSERT INTO `listings` (`listing_id`, `seller_id`, `title`, `description`, `price`, `category_id`, `image_url`, `created_at`, `status`, `location`) VALUES
-(1, 1, 'Smartphone', 'Latest model smartphone with amazing features', 699.99, 1, 'http://example.com/image1.jpg', '2024-09-27 05:41:32', 'available', 'New York'),
-(2, 2, 'Office Chair', 'Ergonomic office chair for maximum comfort', 199.99, 2, 'http://example.com/image2.jpg', '2024-09-27 05:41:32', 'available', 'San Francisco');
+INSERT INTO `listings` (`listing_id`, `seller_id`, `title`, `description`, `price`, `category_id`, `image_url`,`location`) VALUES
+(7, 2, 'MacBookPro', 'Latest model of Laptops with amazing features', 999.99, 1, 'https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?auto=compress&cs=tinysrgb&w=800','Uzbekistan'),
+(8, 3, 'AirPods Max', 'Ergonomic and well structures AirPods for maximum comfort', 499.99, 3, 'https://images.pexels.com/photos/8000587/pexels-photo-8000587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2','Uzbekistan');
 
 -- --------------------------------------------------------
 

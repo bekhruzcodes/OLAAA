@@ -38,15 +38,16 @@ function getAllProducts()
 
         $sql = "SELECT 
                     listings.listing_id as 'id', 
-                    listings.seller_id, 
-                    listings.title, 
+                    listings.seller_id as 'seller_id', 
+                    listings.title as 'title', 
                     listings.description as 'about', 
-                    listings.price, 
+                    listings.price as 'price', 
                     categories.category_name as 'category', 
                     listings.image_url as 'image', 
                     listings.created_at as 'time', 
                     listings.location, 
-                    listings.status
+                    listings.status,
+                    listings.quantity
                 FROM 
                     listings 
                 LEFT JOIN 
@@ -63,7 +64,7 @@ function getAllProducts()
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $products;
-    } catch (PDOException $e) {
+    }catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL products: " . $e->getMessage() . "\n\n";
         file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
@@ -72,17 +73,44 @@ function getAllProducts()
 }
 
 function getProductsByCategoryId($categoryId) {
-    
+
     $conn = connectToDatabase();
 
     if ($conn === null) {
         return [];
     }
 
-    $stmt = $conn->prepare("SELECT * FROM listings WHERE category_id = ?");
-    $stmt->execute([$categoryId]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    try {
+        // Select all columns from listings, alias 'image_url' as 'image', and include 'rating' from reviews
+        $sql = "SELECT 
+                listings.*, 
+                listings.image_url AS image, 
+                reviews.rating AS rating
+            FROM 
+                listings
+            LEFT JOIN 
+                reviews 
+                ON listings.listing_id = reviews.listing_id
+            WHERE 
+                listings.category_id = ? 
+            AND 
+                listings.status != 'inactive';
+        ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$categoryId]);
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        // Log error message to a file or handle it as needed
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error: " . $e->getMessage() . "\n\n";
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+
+        return [];
+    }
 }
+    
+
 
 
 
@@ -198,10 +226,40 @@ function GetCategorie(){
 
         return $catgories;
     } catch (PDOException $e) {
-        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL Catgories: " . $e->getMessage() . "\n\n";
+        $errorMessage = "[" . date("Y-m-d H:i:GetCategors") . "] SQL query error in select ALL Catgories: " . $e->getMessage() . "\n\n";
         file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
 
+}
+
+function add_category(){
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $category_name = $_POST['category_name'];
+        $description = $_POST['description'];
+    
+        $host = "localhost";
+        $username = "root";
+        $password = "Kenc1k06";
+        $database = "playground_db";
+    
+        $connection = new mysqli($host, $username, $password, $database);
+    
+        if ($connection->connect_error) {
+            die("Connection failed: " . $connection->connect_error);
+        }
+    
+        $stmt = $connection->prepare("INSERT INTO categories (category_name, description) VALUES (?, ?)");
+        $stmt->bind_param("ss", $category_name, $description);
+    
+        if ($stmt->execute()) {
+            echo "<div class='alert alert-success'>Category added successfully!</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Error: " . $stmt->error . "</div>";
+        }
+    
+        $stmt->close();
+        $connection->close();
+    }
 }

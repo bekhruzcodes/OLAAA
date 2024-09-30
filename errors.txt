@@ -1,2 +1,2 @@
-[2024-09-29 16:06:53] Database connection error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+[2024-09-30 01:48:51] Erro While Logging In User: 
 
