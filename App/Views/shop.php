@@ -14,28 +14,28 @@ $start = ($page - 1) * $limit;
 // $minPrice = isset($_GET['min_price']) ? (int)$_GET['min_price'] : null;
 // $maxPrice = isset($_GET['max_price']) ? (int)$_GET['max_price'] : null;
 
-$minPrice = 120;
-$maxPrice = 120000;
+// $minPrice = 120;
+// $maxPrice = 120000;
 
-if (isset($_GET['category_id'])) {
-    $categoryId = (int)$_GET['category_id'];
-    $totalProducts = countAllProducts( $categoryId, $minPrice, $maxPrice); // Count products with price filter if provided
-    $totalPages = ceil($totalProducts / $limit);
+// if (isset($_GET['category_id'])) {
+//     $categoryId = (int)$_GET['category_id'];
+//     $totalProducts = countAllProducts( $categoryId, $minPrice, $maxPrice); // Count products with price filter if provided
+//     $totalPages = ceil($totalProducts / $limit);
 
-    $products = getProducts( $categoryId, $start, $limit, $minPrice, $maxPrice);
+//     $products = getProducts( $categoryId, $start, $limit, $minPrice, $maxPrice);
 
-} elseif (isset($_GET['allcategories']) && $_GET['allcategories'] === 'true') {
-    $totalProducts = countAllProducts( null, $minPrice, $maxPrice);
-    $totalPages = ceil($totalProducts / $limit);
+// } elseif (isset($_GET['allcategories']) && $_GET['allcategories'] === 'true') {
+//     $totalProducts = countAllProducts( null, $minPrice, $maxPrice);
+//     $totalPages = ceil($totalProducts / $limit);
 
-    $products = getProducts( null, $start, $limit, $minPrice, $maxPrice);
+//     $products = getProducts( null, $start, $limit, $minPrice, $maxPrice);
 
-} else {
-    $totalProducts = countAllProducts( null, $minPrice, $maxPrice);
-    $totalPages = ceil($totalProducts / $limit);
+// } else {
+//     $totalProducts = countAllProducts( null, $minPrice, $maxPrice);
+//     $totalPages = ceil($totalProducts / $limit);
 
-    $products = getProducts( null, $start, $limit, $minPrice, $maxPrice);
-}
+//     $products = getProducts( null, $start, $limit, $minPrice, $maxPrice);
+// }
 ?>
 
 
