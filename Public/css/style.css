@@ -11,3 +11,53 @@
     /* ---------------------------------------
     ##### - PLACE YOUR CUSTOM CSS HERE - #####
     --------------------------------------- */
+
+/* Default styles for all screen sizes */
+.single_widget_area .footer_menu .navbar .navbar-nav.d-flex {
+    display: flex !important;
+    flex-direction: row !important; 
+    flex-wrap: nowrap !important; 
+    gap: 20px !important;
+    width: 100% !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+}
+
+.single_widget_area .footer_menu .navbar .navbar-nav .nav-item {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+}
+
+.single_widget_area .footer_menu .navbar .navbar-nav .nav-item .nav-link {
+    padding: 10px 15px !important;
+    white-space: nowrap !important;
+    display: block !important;
+}
+
+/* Mobile styles only - override the row layout */
+@media (max-width: 768px) {
+    .single_widget_area .footer_menu .navbar .navbar-nav.d-flex {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .single_widget_area .footer_menu .navbar .navbar-nav .nav-item {
+        width: 100% !important;
+        margin-bottom: -20px !important;
+    }
+
+    .single_widget_area .footer_menu .navbar .navbar-nav .nav-item .nav-link {
+        display: inline-block !important;
+        padding: 8px 0 !important;
+        margin-right: 15px !important;
+    }
+    
+    .single_widget_area .footer_menu .navbar .navbar-nav.ml-auto {
+        margin-left: 0 !important;
+    }
+    
+    .single_widget_area .footer_menu .navbar .navbar-nav .nav-item {
+        flex: none !important;
+    }
+}

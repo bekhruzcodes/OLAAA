@@ -6,7 +6,7 @@
                 <div class="col-12 col-lg-6 col-xl-7">
                     <div class="newsletter-text mb-100">
                         <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
+                        <p>Get this special welcome discount and enjoy your shopping in Olaaa. Stay tuned for more products and amazing news from Olaaa</p>
                     </div>
                 </div>
                 <!-- Newsletter Form -->
@@ -31,43 +31,40 @@
                 <div class="col-12 col-lg-4">
                     <div class="single_widget_area">
                         <!-- Logo -->
-                        <div class="footer-logo mr-50">
-                            <a href="index.php"><img src="../../Public/img/core-img/logo2.png" alt=""></a>
+                        <div class="footer-logo mr-50" style="margin-bottom: -100px; margin-top: -60px;">
+                            <a href="index.php"><img src="../../Public/img/core-img/olaaa.png" alt="image"></a>
                         </div>
                         <!-- Copywrite Text -->
-                        <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p class="copywrite">
                             Copyright &copy;<script>
                                 document.write(new Date().getFullYear());
-                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                            </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon </a>& <a href="https://t.me/Bek_and_dev">Given a life by Error-404</a>
+                        </p>
                     </div>
                 </div>
                 <!-- Single Widget Area -->
                 <div class="col-12 col-lg-8">
                     <div class="single_widget_area">
-                        <!-- Footer Menu -->
                         <div class="footer_menu">
-                            <nav class="navbar navbar-expand-lg justify-content-end">
-                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                                <div class="collapse navbar-collapse" id="footerNavContent">
-                                    <ul class="navbar-nav ml-auto">
-                                        <li class="nav-item active">
-                                            <a class="nav-link" href="index.php">Home</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="shop.php">Shop</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="product-details.php">Product</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="cart.php">Cart</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="checkout.php">Checkout</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <nav class="navbar">
+                                <!-- Remove justify-content-end from navbar -->
+                                <ul class="navbar-nav d-flex ml-auto">
+                                    <li class="nav-item <?= isset($home_active) ? $home_active : "" ?>">
+                                        <a class="nav-link" href="index.php">Home</a>
+                                    </li>
+                                    <li class="nav-item <?= isset($shop_active) ? $shop_active : "" ?>">
+                                        <a class="nav-link" href="shop.php">Shop</a>
+                                    </li>
+                                    <li class="nav-item <?= isset($product_active) ? $product_active : "" ?>">
+                                        <a class="nav-link" href="product-details.php">Product</a>
+                                    </li>
+                                    <li class="nav-item <?= isset($cart_active) ? $cart_active : "" ?>">
+                                        <a class="nav-link" href="cart.php">Cart</a>
+                                    </li>
+                                    <li class="nav-item <?= isset($check_active) ? $check_active : "" ?>">
+                                        <a class="nav-link" href="checkout.php">Checkout</a>
+                                    </li>
+                                </ul>
                             </nav>
                         </div>
                     </div>
@@ -75,6 +72,8 @@
             </div>
         </div>
     </footer>
+
+
     <!-- ##### Footer Area End ##### -->
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
@@ -87,7 +86,9 @@
     <script src="../../Public/js/plugins.js"></script>
     <!-- Active js -->
     <script src="../../Public/js/active.js"></script>
+    <!-- My own custom js -->
+    <script src="../../Public/js/myadds.js"></script>
 
-</body>
+    </body>
 
-</html>
+    </html>

@@ -2,7 +2,7 @@
 <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.php"><img src="../../Public/img/core-img/logo.png" alt=""></a>
+                <a href="index.php"><img src="../../Public/img/core-img/ola.png" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -17,8 +17,8 @@
                 <i class="fa fa-close" aria-hidden="true"></i>
             </div>
             <!-- Logo -->
-            <div class="logo">
-                <a href="index.php"><img src="../../Public/img/core-img/logo.png" alt=""></a>
+            <div class="logo" style="margin-top: -50px; margin-bottom: -30px;">
+                <a href="index.php"><img src="../../Public/img/core-img/ola.png" alt=""></a>
             </div>
             <!-- Amado Nav -->
             <nav class="amado-nav">

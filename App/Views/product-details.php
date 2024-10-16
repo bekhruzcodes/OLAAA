@@ -18,44 +18,41 @@ include_once "../comp/head.php";
 
         <!-- Product Details Area Start -->
         <div class="single-product-area section-padding-100 clearfix">
-            <div class="container-fluid">
+            <div class="container-fluid" id="productContainer">
 
                 <div class="row">
                     <div class="col-12 col-lg-7">
                         <div class="single_product_thumb">
                             <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(<?=$product['image']?>);">
+                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(../../<?=$product['image']?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(<?=$product['image']?>);">
+                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(../../<?=$product['image']?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url(<?=$product['image']?>);">
+                                    <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url(../../<?=$product['image']?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="3" style="background-image: url(<?=$product['image']?>);">
+                                    <li data-target="#product_details_slider" data-slide-to="3" style="background-image: url(../../<?=$product['image']?>);">
                                     </li>
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <a class="gallery_img" href="img/product-img/pro-big-1.jpg">
-                                            <img class="d-block w-100" src="<?=$product['image']?>"
-                                            
-                                            behruz aka wetga id tutib olib rasmini qoyasz
-                                            alt="First slide">
+                                            <img class="d-block w-100" src="../../<?=$product['image']?>" alt="First slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-2.jpg">
-                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Second slide">
+                                            <img class="d-block w-100" src="../../<?=$product['image']?>" alt="Second slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-3.jpg">
-                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Third slide">
+                                            <img class="d-block w-100" src="../../<?=$product['image']?>" alt="Third slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
                                         <a class="gallery_img" href="img/product-img/pro-big-4.jpg">
-                                            <img class="d-block w-100" src="<?=$product['image']?>" alt="Fourth slide">
+                                            <img class="d-block w-100" src="../../<?=$product['image']?>" alt="Fourth slide">
                                         </a>
                                     </div>
                                 </div>
@@ -82,7 +79,7 @@ include_once "../comp/head.php";
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </div>
                                     <div class="review">
-                                        <a href="#">Write A Review</a>
+                                        <a href="#" id="writeReviewLink">Reviews</a>
                                     </div>
                                 </div>
                                 <!-- Avaiable -->
@@ -96,7 +93,7 @@ include_once "../comp/head.php";
                             <!-- Add to Cart Form -->
                             <form class="cart clearfix" method="post">
                                 <div class="cart-btn d-flex mb-50">
-                                    <p>Qty</p>
+                                    <p>Quantity</p>
                                     <div class="quantity">
                                         <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
                                         <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
@@ -106,9 +103,17 @@ include_once "../comp/head.php";
                                 <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
                             </form>
 
+                            
+
                         </div>
+                        
                     </div>
+                    
                 </div>
+                
+            </div>
+            <div class="container" >
+                    <p>hellooooo I wanna read and write comments hereee, it is in myadds.js file</p>
             </div>
         </div>
         <!-- Product Details Area End -->

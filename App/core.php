@@ -20,7 +20,7 @@ function connectToDatabase()
         return $conn;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Database connection error: " . $e->getMessage() . "\n\n";
-        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents("../".ERROR_FILE, $errorMessage, FILE_APPEND);
         return null;
     }
 }
@@ -65,7 +65,7 @@ function getAllProducts()
         return $products;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL products: " . $e->getMessage() . "\n\n";
-        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents("../".ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
@@ -199,7 +199,7 @@ function GetCategorie(){
         return $catgories;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL Catgories: " . $e->getMessage() . "\n\n";
-        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents("../".ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
