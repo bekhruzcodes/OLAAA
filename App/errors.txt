@@ -112,3 +112,10 @@
 
 [2024-09-29 01:22:01] No products found in session. 
 
+[2024-10-16 08:16:45] Database connection error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+
+[2024-10-16 08:16:53] Database connection error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+
+[2024-10-16 08:17:35] Database connection error: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)
+
+Faqat database passwordni o'zgartirdim.
