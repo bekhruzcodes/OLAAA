@@ -43,7 +43,7 @@
     </div>
     <!-- Social Button -->
     <div class="social-info d-flex justify-content-between">
-        <a href="https://t.me/ilhamovblog" target="_blank"><i class="fa fa-telegram" aria-hidden="true"></i></a>
+        <a href="https://t.me/Bek_and_dev" target="_blank"><i class="fa fa-telegram" aria-hidden="true"></i></a>
         <a href="https://www.pinterest.com/bekhruzbekmirzaliev744/" target="_blank"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
         <a href="https://github.com/kenc1k" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
         <a href="https://www.linkedin.com/in/ravshanbek-ilhomov-2701a5263/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
