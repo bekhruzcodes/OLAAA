@@ -76,7 +76,7 @@ $product_active = "active";
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>  <!-- Empty star -->
                                     </div>
                                     <div class="review">
                                         <a href="#" id="writeReviewLink">Reviews</a>

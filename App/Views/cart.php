@@ -53,7 +53,7 @@ foreach ($inCart as $product) {
                                                 <p>Qty</p>
                                                 <div class="quantity">
                                                     <span class="qty-minus" onclick="decreaseQty(<?=$cartItem['id']?>, <?=$cartItem['price']?>)"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty-<?=$cartItem['id']?>" step="1" min="1" max="300" name="quantity" value="1">
+                                                    <input type="number" class="qty-text" id="qty-<?=$cartItem['id']?>" step="1" min="1" max="300" name="quantity" value="1" readonly>
                                                     <span class="qty-plus" onclick="increaseQty(<?=$cartItem['id']?>, <?=$cartItem['price']?>)"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                 </div>
                                             </div>

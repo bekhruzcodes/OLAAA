@@ -13,7 +13,7 @@
                 <div class="col-12 col-lg-6 col-xl-5">
                     <div class="newsletter-form mb-100">
                         <form action="#" method="post">
-                            <input type="email" name="email" class="nl-email" placeholder="Your E-mail">
+                            <input type="email" name="email" class="nl-email" placeholder="Your E-mail" style="outline: none">
                             <input type="submit" value="Subscribe">
                         </form>
                     </div>
