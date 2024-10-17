@@ -48,53 +48,85 @@ document.getElementById("writeReviewLink").addEventListener("click", function (e
 // ### Cart Start ###
 
 // Function to decrease the quantity and handle row removal
-function decreaseQty() {
-    const qtyInput = document.getElementById('qty');
-    const cartItemRow = document.getElementById('cart-item-row'); // The row containing the item
+function decreaseQty(productId, price) {
+    const qtyInput = document.getElementById(`qty-${productId}`);
+    const cartItemRow = document.getElementById(`cart-item-row-${productId}`); 
 
     let currentValue = parseInt(qtyInput.value);
 
-    // If the value is greater than the minimum, decrease the quantity
-    if (currentValue > parseInt(qtyInput.min)) {
-        currentValue -= 1;
-        qtyInput.value = currentValue;
-        updateCartTotal(currentValue);
-    }
 
     // If the value becomes 0, remove the entire row from the table
-    if (parseInt(qtyInput.value) === 0) {
-        removeFromCart(); // Call function to remove item from cart (via PHP or backend)
-        updateCartTotal(0);
-        cartItemRow.remove(); // Remove the <tr> element from the DOM
-    }
+    if (currentValue == 1) {
+        removeFromCart(productId); 
+        cartItemRow.remove(); 
+    } else if (currentValue > 1) {
+        currentValue -= 1;
+        qtyInput.value = currentValue;
 
-    updateCartTotal(currentValue);
+    }
+    updateCartTotal( false, price); 
+
 }
 
 // Function to increase the quantity
-function increaseQty() {
-    const qtyInput = document.getElementById('qty');
+function increaseQty(productId, price) {
+    const qtyInput = document.getElementById(`qty-${productId}`);
     let currentValue = parseInt(qtyInput.value);
 
     if (currentValue < parseInt(qtyInput.max)) {
         currentValue += 1;
         qtyInput.value = currentValue;
+        updateCartTotal( true, price); // true for increasing
     }
-
-    updateCartTotal(currentValue);
 }
 
+
+
+// Function to update the total amount in the cart summary
+function updateCartTotal(isAdd, price) {
+    // Retrieve and clean the subtotal and shipping fee from the DOM
+    const subtotalText = document.getElementById('subtotal-price').textContent.replace('$', '');
+    const shippingFeeText = document.getElementById('shipping-fee').textContent.replace('$', '');
+
+    // Convert values to numbers
+    const shippingFeeNum = parseFloat(shippingFeeText) || 0;
+    const itemPriceNum = parseFloat(price) || 0;
+    const subtotalPriceNum = parseFloat(subtotalText) || 0;
+
+    // Update subtotal and total based on whether adding or removing an item
+    let newSubtotalNum, newTotalNum;
+
+    if (isAdd) {
+        newSubtotalNum = subtotalPriceNum + itemPriceNum;
+    } else {
+        newSubtotalNum = subtotalPriceNum - itemPriceNum;
+    }
+    
+    newTotalNum = newSubtotalNum + shippingFeeNum;
+
+    if (newSubtotalNum == 0) {
+        document.getElementById('shipping-fee').textContent = '$0.00';
+        newTotalNum = 0;
+    } 
+
+    // Update the DOM with the new values
+    document.getElementById('subtotal-price').textContent = `$${newSubtotalNum.toFixed(2)}`;
+    document.getElementById('total-price').textContent = `$${newTotalNum.toFixed(2)}`;
+}
+
+
+
+
 // Function to call PHP and remove the item from the cart
-function removeFromCart() {
+function removeFromCart(productId) {
     const xhr = new XMLHttpRequest();  // Create new AJAX request
     xhr.open("POST", "remove_from_cart.php", true);  // Specify the PHP file to call
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     // Send the request with item details (e.g., item ID)
-    const itemId = 123;  // Replace with actual item ID from your array
-    xhr.send("item_id=" + itemId);
+    xhr.send(`item_id=${productId}`);
 
-    // Handle the response (optional)
+    // Handle the response
     xhr.onload = function () {
         if (xhr.status === 200) {
             console.log("Item removed from cart");
@@ -103,25 +135,4 @@ function removeFromCart() {
         }
     };
 }
-
-
-// Function to update the total amount in the cart summary
-function updateCartTotal(amount) {
-    const itemPrice = document.getElementById('item-price').textContent;
-    const totalAmount = document.getElementById('total-price');
-    const subtotalAmount = document.getElementById('subtotal-price');
-    const shippingFee = document.getElementById('shipping-fee').textContent;
-
-    // Convert values to numbers
-    const itemPriceNum = parseFloat(itemPrice) || 0;
-    const subtotalAmountNum = parseFloat(subtotalAmount) || 0;
-    const shippingFeeNum = parseFloat(shippingFee) || 0;
-    const amountNum = parseFloat(amount) || 0;
-
-    subtotalAmount.textContent = `$${(amountNum * itemPriceNum).toFixed(2)}`;
-    totalAmount.textContent = `$${(amountNum * itemPriceNum + shippingFeeNum).toFixed(2)}`;
-
-}
-
-
 // ### Cart End ###

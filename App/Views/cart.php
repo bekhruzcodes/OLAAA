@@ -2,7 +2,7 @@
 
 $cart_active = "active";
 $totalPrice = 0;
-$delivery = 0;
+$delivery = 1000;
 
 foreach ($inCart as $product) {
     $totalPrice += $product['price'];
@@ -38,7 +38,7 @@ foreach ($inCart as $product) {
                                 </thead>
                                 <tbody>
                                     <?php foreach($inCart as $cartItem){?>
-                                    <tr id="cart-item-row">
+                                    <tr id="cart-item-row-<?=$cartItem['id']?>">
                                         <td class="cart_product_img">
                                             <a href="#"><img src="../../<?=$cartItem['image']?>" alt="Product"></a>
                                         </td>
@@ -46,15 +46,15 @@ foreach ($inCart as $product) {
                                             <h5><?=$cartItem['title']?></h5>
                                         </td>
                                         <td class="price">
-                                            $<span id="item-price"><?=$cartItem['price']?></span>
+                                            <span id="item-price">$<?=$cartItem['price']?></span>
                                         </td>
                                         <td class="qty">
                                             <div class="qty-btn d-flex" id="cart-item">
                                                 <p>Qty</p>
                                                 <div class="quantity">
-                                                    <span class="qty-minus" onclick="decreaseQty()"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty" step="1" min="0" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="increaseQty()"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                    <span class="qty-minus" onclick="decreaseQty(<?=$cartItem['id']?>, <?=$cartItem['price']?>)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                    <input type="number" class="qty-text" id="qty-<?=$cartItem['id']?>" step="1" min="1" max="300" name="quantity" value="1">
+                                                    <span class="qty-plus" onclick="increaseQty(<?=$cartItem['id']?>, <?=$cartItem['price']?>)"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
 
@@ -70,7 +70,7 @@ foreach ($inCart as $product) {
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
                                 <li><span>subtotal:</span> <span id="subtotal-price">$<?=$totalPrice?></span></li>
-                                <li><span>delivery:</span> <span id="shipping-fee">$<?=$delivery?></span></li>
+                                <li><span>delivery:</span> <span id="shipping-fee"><?=($delivery>0)? "$"."{$delivery}" : 'Free'?></span></li>
                                 <li><span>total:</span> <span id="total-price">$<?=$totalPrice+$delivery?></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
