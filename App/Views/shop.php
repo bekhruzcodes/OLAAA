@@ -1,5 +1,5 @@
 <?php 
-require_once '../core.php';  
+include_once "../comp/head.php";  
 $categories =GetCategorie();
 $shop_active = "active";
 
@@ -27,7 +27,7 @@ if (isset($_GET['category_id'])) {
 
 
 
-<?php include_once "../comp/head.php"?>
+
 
 <body>
     <?php include_once "../comp/search_box.php"?>

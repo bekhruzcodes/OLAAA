@@ -1,3 +1,9 @@
+<?php
+include_once "../core.php";
+$inCart = getAllProducts();
+$inCartCount = count($inCart)
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

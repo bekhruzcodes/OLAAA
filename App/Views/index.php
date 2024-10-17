@@ -1,6 +1,6 @@
 <?php
 
-require_once "../core.php";
+include_once "../comp/head.php"; 
 
 if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
     $products = $_SESSION['products'];
@@ -11,7 +11,7 @@ if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
 
 
 $home_active = "active";
-include_once "../comp/head.php"; 
+
 ?>
 
 

@@ -1,9 +1,9 @@
 <?php
-include_once "../core.php";
+include_once "../comp/head.php";
 $product = $_SESSION['single_product'];
 
 $product_active = "active";
-include_once "../comp/head.php";
+
 ?>
 
 
@@ -83,7 +83,7 @@ include_once "../comp/head.php";
                                     </div>
                                 </div>
                                 <!-- Avaiable -->
-                                <p class="avaibility"><i class="fa fa-circle"></i> <?=$product['status']?></p>
+                                <p class="avaibility"><i class="fa fa-circle" style="<?=($product['status']== "sold")? 'color: #ee0000 !important;' : ''?>"></i> <?=$product['status']?></p>
                             </div>
 
                             <div class="short_overview my-5">

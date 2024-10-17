@@ -12,7 +12,7 @@
     ##### - PLACE YOUR CUSTOM CSS HERE - #####
     --------------------------------------- */
 
-/* Default styles for all screen sizes */
+/* Footer Start */
 .single_widget_area .footer_menu .navbar .navbar-nav.d-flex {
     display: flex !important;
     flex-direction: row !important; 
@@ -61,3 +61,6 @@
         flex: none !important;
     }
 }
+
+/* Footer Start */
+

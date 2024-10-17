@@ -1,3 +1,4 @@
+
 <!-- Mobile Nav (max width 767px)-->
 <div class="mobile-nav">
             <!-- Navbar Brand -->
@@ -37,7 +38,7 @@
             </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="cart.php" class="cart-nav"><img src="../../Public/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
+                <a href="cart.php" class="cart-nav"><img src="../../Public/img/core-img/cart.png" alt=""> Cart <span>(<?=isset($inCartCount)? $inCartCount : 0 ?>)</span></a>
                 <a href="#" class="fav-nav"><img src="../../Public/img/core-img/favorites.png" alt=""> Favourite</a>
                 <a href="#" class="search-nav"><img src="../../Public/img/core-img/search.png" alt=""> Search</a>
             </div>

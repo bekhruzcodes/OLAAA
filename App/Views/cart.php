@@ -1,15 +1,22 @@
 <?php include_once "../comp/head.php";
 
 $cart_active = "active";
+$totalPrice = 0;
+$delivery = 0;
+
+foreach ($inCart as $product) {
+    $totalPrice += $product['price'];
+}
+
 ?>
 
 <body>
-    <?php include_once "../comp/search_box.php"?>
+    <?php include_once "../comp/search_box.php" ?>
 
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
 
-        <?php include_once "../comp/navbar.php"?>
+        <?php include_once "../comp/navbar.php" ?>
 
         <div class="cart-table-area section-padding-100">
             <div class="container-fluid">
@@ -30,69 +37,30 @@ $cart_active = "active";
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <?php foreach($inCart as $cartItem){?>
+                                    <tr id="cart-item-row">
                                         <td class="cart_product_img">
-                                            <a href="#"><img src="../../Public/img/bg-img/cart1.jpg" alt="Product"></a>
+                                            <a href="#"><img src="../../<?=$cartItem['image']?>" alt="Product"></a>
                                         </td>
                                         <td class="cart_product_desc">
-                                            <h5>White Modern Chair</h5>
+                                            <h5><?=$cartItem['title']?></h5>
                                         </td>
                                         <td class="price">
-                                            <span>$130</span>
+                                            $<span id="item-price"><?=$cartItem['price']?></span>
                                         </td>
                                         <td class="qty">
-                                            <div class="qty-btn d-flex">
+                                            <div class="qty-btn d-flex" id="cart-item">
                                                 <p>Qty</p>
                                                 <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                    <span class="qty-minus" onclick="decreaseQty()"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                    <input type="number" class="qty-text" id="qty" step="1" min="0" max="300" name="quantity" value="1">
+                                                    <span class="qty-plus" onclick="increaseQty()"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
+
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="../../Public/img/bg-img/cart2.jpg" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>Minimal Plant Pot</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>$10</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty2" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty2'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cart_product_img">
-                                            <a href="#"><img src="../../Public/img/bg-img/cart3.jpg" alt="Product"></a>
-                                        </td>
-                                        <td class="cart_product_desc">
-                                            <h5>Minimal Plant Pot</h5>
-                                        </td>
-                                        <td class="price">
-                                            <span>$10</span>
-                                        </td>
-                                        <td class="qty">
-                                            <div class="qty-btn d-flex">
-                                                <p>Qty</p>
-                                                <div class="quantity">
-                                                    <span class="qty-minus" onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty3" step="1" min="1" max="300" name="quantity" value="1">
-                                                    <span class="qty-plus" onclick="var effect = document.getElementById('qty3'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <?php }?>
                                 </tbody>
                             </table>
                         </div>
@@ -101,9 +69,9 @@ $cart_active = "active";
                         <div class="cart-summary">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
-                                <li><span>subtotal:</span> <span>$140.00</span></li>
-                                <li><span>delivery:</span> <span>Free</span></li>
-                                <li><span>total:</span> <span>$140.00</span></li>
+                                <li><span>subtotal:</span> <span id="subtotal-price">$<?=$totalPrice?></span></li>
+                                <li><span>delivery:</span> <span id="shipping-fee">$<?=$delivery?></span></li>
+                                <li><span>total:</span> <span id="total-price">$<?=$totalPrice+$delivery?></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
                                 <a href="cart.php" class="btn amado-btn w-100">Checkout</a>
@@ -117,4 +85,4 @@ $cart_active = "active";
     <!-- ##### Main Content Wrapper End ##### -->
 
     <!-- ##### Footer ##### -->
-    <?php include_once "../comp/footer.php"?>
+    <?php include_once "../comp/footer.php" ?>
