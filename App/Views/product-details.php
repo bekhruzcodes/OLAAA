@@ -1,5 +1,10 @@
 <?php
 include_once "../comp/head.php";
+// if (!isset($_SESSION['single_product'])) {
+//     echo "No product selected!";
+//     exit;
+// }
+
 $product = $_SESSION['single_product'];
 
 $product_active = "active";
@@ -72,11 +77,9 @@ $product_active = "active";
                                 <!-- Ratings & Review -->
                                 <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
                                     <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>  <!-- Empty star -->
+                                        <?php for($i=1; $i<6;$i++){?>
+                                        <i class="<?=($i>$product['rating'])? 'fa fa-star-o': 'fa fa-star'?>" aria-hidden="true"></i>  
+                                        <?php };?>
                                     </div>
                                     <div class="review">
                                         <a href="#" id="writeReviewLink">Reviews</a>

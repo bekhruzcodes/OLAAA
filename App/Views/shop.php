@@ -1,6 +1,6 @@
 <?php 
 include_once "../comp/head.php";  
-$categories =GetCategorie();
+$categories =GetCategories();
 $shop_active = "active";
 
 // Check if category ID is passed in the URL
