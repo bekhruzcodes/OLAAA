@@ -2,7 +2,6 @@
 session_start();
 
 define("ERROR_FILE", "../errors.txt");
-$starChosen = 5;
 
 function connectToDatabase()
 {
