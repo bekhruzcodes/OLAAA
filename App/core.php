@@ -2,7 +2,7 @@
 session_start();
 
 define("ERROR_FILE", "../errors.txt");
-
+$starChosen = 5;
 
 function connectToDatabase()
 {
@@ -86,7 +86,6 @@ function getProductsByCategoryId($categoryId)
 }
 
 
-
 function filterByWord($products, $word)
 {
     return array_filter($products, function ($product) use ($word) {
@@ -109,8 +108,7 @@ function filterByLastWeek($products, $weekDate)
     });
 }
 
-function sortByDateDesc($products)
-{
+function sortByDateDesc($products){
     usort($products, function ($a, $b) {
         return strtotime($b['time']) - strtotime($a['time']);
     });
@@ -186,7 +184,10 @@ function GetCategories()
         return [];
     }
 }
-function getRating($id){
+
+
+function getRating($id)
+{
     $conn = connectToDatabase();
 
     if ($conn === null) {
@@ -200,7 +201,6 @@ function getRating($id){
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['rating'];
-
     } catch (Throwable $e) {
 
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select Single product rating: " . $e->getMessage() . "\n\n";
@@ -246,13 +246,12 @@ function getSingleProduct($id)
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($product) {
-            $product['rating'] = getRating($id) ;
+            $product['rating'] = getRating($id);
             return $product;
         } else {
-            
+
             return [];
         }
-
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select Single product: " . $e->getMessage() . "\n\n";
         file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
@@ -261,6 +260,68 @@ function getSingleProduct($id)
     }
 }
 
+
+function getProductReviews($id)
+{
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return [];
+    }
+
+    try {
+        $sql = "SELECT 
+        reviews.review_id AS 'id',
+        users.name AS 'user', 
+        reviews.review_text AS 'text' , 
+        reviews.rating, 
+        reviews.user_id, 
+        DATE(reviews.created_at) AS 'time'  
+        FROM `reviews`
+        LEFT JOIN users ON users.id = reviews.user_id
+        WHERE listing_id = :id;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            
+        return $reviews ;
+      
+    } catch (PDOException $e) {
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select product Reviews: " . $e->getMessage() . "\n\n";
+        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+
+        return [];
+    }
+}
+
+function insertReview($user_id, $listing_id, $rating, $text){
+    $conn = connectToDatabase();
+    if ($conn === null) {
+        return [];
+    }
+    try {
+        $sql = "INSERT INTO `reviews`
+        ( `user_id`, `listing_id`, `rating`, `review_text`) 
+        VALUES 
+        (:user_id, :listing_id, :rating, :r_text);";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(":user_id", $user_id);
+        $stmt->bindParam(":listing_id", $listing_id);
+        $stmt->bindParam(":rating", $rating);
+        $stmt->bindParam(":r_text", $text);
+        $stmt->execute();
+       
+    } catch (\Throwable $e) {
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in inserting new Review to Database: " . $e->getMessage() . "\n\n";
+        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+
+    }
+    
+}
 
 
 
@@ -271,21 +332,42 @@ if (isset($_GET['search']) && !empty($_GET['search_inp'])) {
 }
 
 
-
 if (isset($_GET['single_id'])) {
     $id = $_GET['single_id'];
 
     try {
         $_SESSION['single_product'] = getSingleProduct($id);
+        $_SESSION['product_reviews'] = getProductReviews($id);
         header("Location:Views/product-details.php");
         exit();
+    } catch (Throwable $e) {
+
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in setting single product and its reviews to SESSION: " . $e->getMessage() . "\n\n";
+        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+    }
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['starChosen'])) {
+    $_SESSION['starChosen'] = $_POST['starChosen'];
+
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submitReview'])) {
+    $submit_review_text = $_POST['reviewTextInput'];
+    $productId = $_POST['productId'];
+    $starChosen = isset($_SESSION['starChosen'])? $_SESSION['starChosen'] : 5 ;
+    $cur_user = 1;
+
+    try {
+
+        insertReview($cur_user,$productId,$starChosen, $submit_review_text );
 
     } catch (Throwable $e) {
 
-        $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in setting single product to SESSION: " . $e->getMessage() . "\n\n";
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in inserting new Review: " . $e->getMessage() . "\n\n";
         file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
-
     }
 
-   
 }

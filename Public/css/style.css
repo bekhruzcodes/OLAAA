@@ -13,6 +13,7 @@
     --------------------------------------- */
 
 /* Footer Start */
+
 .single_widget_area .footer_menu .navbar .navbar-nav.d-flex {
     display: flex !important;
     flex-direction: row !important; 
@@ -64,3 +65,180 @@
 
 /* Footer Start */
 
+.reviews-carousel {
+    width: 100%;
+    height: 300px;
+    max-width: 800px;
+    margin: 2rem auto;
+    margin-top: -2px;
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reviews-carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.review-card {
+    min-width: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.review-card.active {
+    opacity: 1;
+}
+
+.review-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.reviewer-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+}
+
+.ratings {
+    color: #f6ad55;
+    margin-bottom: 1rem;
+}
+
+.ratings i {
+    margin-right: 0.25rem;
+}
+
+.review-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    margin-bottom: 1rem;
+}
+
+.review-date {
+    font-size: 0.875rem;
+    color: #718096;
+}
+
+.carousel-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Space between buttons */
+    z-index: 10;
+}
+
+.carousel-control {
+    position: absolute;
+    color: #6b6b6b;
+    font-size: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    outline: none;
+    
+}
+
+.carousel-control:focus {
+    outline: none; 
+}
+
+.carousel-control:hover {
+    color: #2d3748;
+}
+
+.carousel-control.prev {
+    left: 2rem;
+}
+
+.carousel-control.next {
+    right: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reviews-carousel {
+        margin: 1rem;
+        width: 94%;
+    }
+
+    .review-card {
+        padding: 1.5rem;
+    }
+
+    .carousel-control {
+        width: 35px;
+        height: 35px;
+    }
+
+    .carousel-control.prev {
+        left: 0.5rem;
+    }
+
+    .carousel-control.next {
+        right: 0.5rem;
+    }
+
+    .reviewer-name {
+        font-size: 1.125rem;
+    }
+
+    .review-text {
+        font-size: 0.875rem;
+    }
+}
+
+
+
+.responsive-textarea {
+    width: 100%;           /* Make it responsive, full width of the container */
+    min-width: 300px;       /* Minimum width */
+    max-width: 100%;        /* Maximum width, preventing it from overflowing */
+    
+    height: 262px;          /* Default fixed height */
+    min-height: 100px;      /* Minimum height */
+    max-height: 262px;      /* Maximum height */
+
+    padding: 10px;          /* Padding for some space inside the textarea */
+    box-sizing: border-box; /* Ensures padding doesn't add to overall width */
+    
+    font-size: 1em;         /* Make text scalable based on font size */
+    border: 1px solid #ccc; /* Add border */
+    resize: vertical;       /* Only allow vertical resizing, no horizontal resizing */
+    
+    transition: all 0.3s ease; /* Add a smooth transition for resizing */
+}
+
+
+@media (max-width: 768px) {
+    .responsive-textarea {
+        min-width: 200px;   /* Smaller minimum width on small devices */
+        height: 120px;      /* Adjust default height for small devices */
+    }
+}
+
+@media (max-width: 480px) {
+    .responsive-textarea {
+        min-width: 100px;   /* Make it even smaller on very small screens */
+        height: 100px;      /* Adjust the height again */
+    }
+}

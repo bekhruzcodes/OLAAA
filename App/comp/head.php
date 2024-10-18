@@ -25,5 +25,6 @@ $inCartCount = count($inCart)
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="../../Public/css/core-style.css">
     <link rel="stylesheet" href="../../Public/css/style.css">
+    
 
 </head>
