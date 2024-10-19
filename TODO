@@ -1,4 +1,8 @@
 #### Navbardagi menu listda faqat bitta cart activeda turibdi, uni php bilan dynamic qilish kerak. ####
 
-#### Form ishlatilgan qismlarda processingdan so'ng header location qilib yuborish kerak, aynan o'sha pageni o'ziga bo'lsa ham
+#### Form ishlatilgan qismlarda processingdan so'ng header location qilib yuborish kerak, aynan o'sha pageni o'ziga bo'lsa ham ####
+
+#### Discount buttonni o'rniga checkout button qilamiz va u faqat cartda product bo'lsa chiqadi animatsiya bilan va navbar list menudan olib tashlaymiz
+
+#### Profile qismini yasash kerak user uchun, va log outni o'sha yerga ko'chiramiz
 

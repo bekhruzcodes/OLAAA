@@ -105,6 +105,8 @@ if (isset($_POST['sign_user'])) {
 
 
 // Logging Out User
-if (isset($_POST['logout_user'])) {
+if (isset($_POST['logout'])) {
     logoutUser();
+    header("Location:Views/index.php");
+    exit();
 }
