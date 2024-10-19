@@ -99,7 +99,7 @@ $product_active = "active";
                                     <p>Quantity</p>
                                     <div class="quantity">
                                         <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1">
+                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" value="1" readonly>
                                         <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
@@ -160,14 +160,13 @@ $product_active = "active";
                                     <!-- Review Text Input -->
                                     <div class="review-input">
                                         <textarea name="reviewTextInput" id="reviewText" class="responsive-textarea" rows="4" placeholder="Share your experience..."></textarea>
-                                        <input type="text" name="productId"  style="display: none;" value="<?=$product['id']?>" readonly>
                                     </div>
 
                                     <!-- Submit Button -->
                                     <div class="submit-review mt-3">
                                         <!-- Back Button as Icon -->
                                         <button type="button" class="btn amado-btn " id="goBackButton"><i class="fa fa-arrow-left" style="cursor: pointer;"></i>&nbsp; Go back</button>
-                                        <button type="submit" name="submitReview" class="btn amado-btn" onclick="submitReview()">Submit &nbsp;<i class="fa fa-arrow-right" style="cursor: pointer;"></i></button>
+                                        <button type="submit" name="submitReview" class="btn amado-btn" value="<?=$product['id']?>" onclick="submitReview()">Submit &nbsp;<i class="fa fa-arrow-right" style="cursor: pointer;"></i></button>
 
                                     </div>
                                 </form>

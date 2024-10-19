@@ -480,7 +480,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['starChosen'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submitReview'])) {
     $submit_review_text = $_POST['reviewTextInput'];
-    $productId = $_POST['productId'];
+    $productId = $_POST['submitReview'];
     $starChosen = isset($_SESSION['starChosen']) ? $_SESSION['starChosen'] : 5;
     $cur_user = 1;
 
