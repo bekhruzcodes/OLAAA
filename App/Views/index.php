@@ -2,14 +2,6 @@
 
 include_once "../comp/head.php"; 
 
-if(isset($_SESSION['products']) and !empty($_SESSION['products']) ){
-    $products = $_SESSION['products'];
-    unset($_SESSION['products']);
-}else{
-    $products = getAllProducts();
-}
-
-
 $home_active = "active";
 
 ?>

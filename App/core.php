@@ -19,7 +19,7 @@ function connectToDatabase()
         return $conn;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Database connection error: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
         return null;
     }
 }
@@ -64,11 +64,113 @@ function getAllProducts()
         return $products;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL products: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
 }
+
+function getTopProducts($limit = 6)
+{
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return [];
+    }
+
+    try {
+
+        $sql = "SELECT 
+                    listings.listing_id as 'id', 
+                    listings.seller_id, 
+                    listings.title, 
+                    listings.description as 'about', 
+                    listings.price, 
+                    categories.category_name as 'category', 
+                    listings.image_url as 'image', 
+                    listings.created_at as 'time', 
+                    listings.location, 
+                    listings.status,
+                    AVG(r.rating) AS avg_rating
+                FROM 
+                    listings 
+                LEFT JOIN 
+                    categories 
+                ON 
+                    categories.category_id = listings.category_id 
+                LEFT JOIN 
+                    reviews r 
+                ON 
+                    listings.listing_id = r.listing_id
+                WHERE 
+                    listings.status != 'inactive'
+                GROUP BY listings.listing_id
+                ORDER BY avg_rating DESC
+                LIMIT :need;
+                ";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(":need", $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;
+    } catch (PDOException $e) {
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select TOP 6 products: " . $e->getMessage() . "\n\n";
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+
+        return [];
+    }
+}
+
+
+function getThisWeeksProducts()
+{
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return [];
+    }
+
+    try {
+        
+        $sql = "SELECT 
+                    listings.listing_id as 'id', 
+                    listings.seller_id, 
+                    listings.title, 
+                    listings.description as 'about', 
+                    listings.price, 
+                    categories.category_name as 'category', 
+                    listings.image_url as 'image', 
+                    listings.created_at as 'time', 
+                    listings.location, 
+                    listings.status
+                FROM 
+                    listings 
+                LEFT JOIN 
+                    categories 
+                ON 
+                    categories.category_id = listings.category_id 
+                WHERE 
+                    listings.status != 'inactive'
+                AND 
+                    listings.created_at >= NOW() - INTERVAL 7 DAY;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;
+    } catch (PDOException $e) {
+        $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select THIS WEEK'S products: " . $e->getMessage() . "\n\n";
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+
+        return [];
+    }
+}
+
 
 function getProductsByCategoryId($categoryId)
 {
@@ -96,9 +198,9 @@ function filterByWord($products, $word)
 }
 
 
-function filterByLastWeek($products, $weekDate)
+function filterByLastWeek($products)
 {
-    $weekDate = new DateTime($weekDate);
+    $weekDate = new DateTime();
     $weekDate->modify('-7 days');
 
     return array_filter($products, function ($product) use ($weekDate) {
@@ -107,7 +209,8 @@ function filterByLastWeek($products, $weekDate)
     });
 }
 
-function sortByDateDesc($products){
+function sortByDateDesc($products)
+{
     usort($products, function ($a, $b) {
         return strtotime($b['time']) - strtotime($a['time']);
     });
@@ -178,7 +281,7 @@ function GetCategories()
         return $catgories;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL Catgories: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
@@ -203,7 +306,7 @@ function getRating($id)
     } catch (Throwable $e) {
 
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select Single product rating: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
         return 0;
     }
 }
@@ -253,7 +356,7 @@ function getSingleProduct($id)
         }
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select Single product: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
@@ -285,18 +388,20 @@ function getProductReviews($id)
         $stmt->execute();
         $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            
-        return $reviews ;
-      
+
+        return $reviews;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select product Reviews: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
 }
 
-function insertReview($user_id, $listing_id, $rating, $text){
+
+
+function insertReview($user_id, $listing_id, $rating, $text)
+{
     $conn = connectToDatabase();
     if ($conn === null) {
         return [];
@@ -313,22 +418,43 @@ function insertReview($user_id, $listing_id, $rating, $text){
         $stmt->bindParam(":rating", $rating);
         $stmt->bindParam(":r_text", $text);
         $stmt->execute();
-       
     } catch (\Throwable $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in inserting new Review to Database: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
-
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
     }
-    
 }
 
+
+// index.php call
+if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
+    $products = $_SESSION['products'];
+    unset($_SESSION['products']);
+} else {
+    $products = getTopProducts();
+}
 
 
 if (isset($_GET['search']) && !empty($_GET['search_inp'])) {
     $pattern = $_GET['search_inp'];
     $products = getSearchedProducts($pattern);
     $_SESSION['products'] = $products;
+    header("Location: index.php");
+    exit();
 }
+
+
+if (isset($_POST['newthisweek']) ) {
+
+    if ( isset($_SESSION['products'])&& !empty($_SESSION['products'])) {
+        $_SESSION['products'] = filterByLastWeek($_SESSION['products'] );
+    } else {
+        $_SESSION['products'] = getThisWeeksProducts();
+    }
+    header("Location: index.php");
+    exit();
+   
+}
+
 
 
 if (isset($_GET['single_id'])) {
@@ -342,31 +468,28 @@ if (isset($_GET['single_id'])) {
     } catch (Throwable $e) {
 
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in setting single product and its reviews to SESSION: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
     }
 }
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['starChosen'])) {
     $_SESSION['starChosen'] = $_POST['starChosen'];
-
 }
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submitReview'])) {
     $submit_review_text = $_POST['reviewTextInput'];
     $productId = $_POST['productId'];
-    $starChosen = isset($_SESSION['starChosen'])? $_SESSION['starChosen'] : 5 ;
+    $starChosen = isset($_SESSION['starChosen']) ? $_SESSION['starChosen'] : 5;
     $cur_user = 1;
 
     try {
 
-        insertReview($cur_user,$productId,$starChosen, $submit_review_text );
-
+        insertReview($cur_user, $productId, $starChosen, $submit_review_text);
     } catch (Throwable $e) {
 
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in inserting new Review: " . $e->getMessage() . "\n\n";
-        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
     }
-
 }
