@@ -3,14 +3,14 @@ $check_active = "active";
 ?>
 
 <body>
-    <?php include_once "../comp/search_box.php"?>
+    <?php include_once "../comp/search_box.php" ?>
 
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
 
-    <?php include_once "../comp/navbar.php"?>
+        <?php include_once "../comp/navbar.php" ?>
 
-        <div class="cart-table-area section-padding-100">
+        <div class="cart-table-area section-padding-10" style="margin-bottom:4% !important;">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-lg-8">
@@ -36,33 +36,28 @@ $check_active = "active";
                                     </div>
                                     <div class="col-12 mb-3">
                                         <select class="w-100" id="country">
-                                        <option value="usa">United States</option>
-                                        <option value="uk">United Kingdom</option>
-                                        <option value="ger">Germany</option>
-                                        <option value="fra">France</option>
-                                        <option value="ind">India</option>
-                                        <option value="aus">Australia</option>
-                                        <option value="bra">Brazil</option>
-                                        <option value="cana">Canada</option>
-                                    </select>
+                                            <option value="usa">United States</option>
+                                            <option value="uk">United Kingdom</option>
+                                            <option value="ger">Germany</option>
+                                            <option value="fra">France</option>
+                                            <option value="ind">India</option>
+                                            <option value="aus">Australia</option>
+                                            <option value="bra">Brazil</option>
+                                            <option value="cana">Canada</option>
+                                        </select>
                                     </div>
                                     <div class="col-12 mb-3">
                                         <input type="text" class="form-control mb-3" id="street_address" placeholder="Address" value="">
                                     </div>
-                                    <div class="col-12 mb-3">
-                                        <input type="text" class="form-control" id="city" placeholder="Town" value="">
-                                    </div>
+                                
                                     <div class="col-md-6 mb-3">
                                         <input type="text" class="form-control" id="zipCode" placeholder="Zip Code" value="">
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <input type="number" class="form-control" id="phone_number" min="0" placeholder="Phone No" value="">
                                     </div>
-                                    <div class="col-12 mb-3">
-                                        <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10" placeholder="Leave a comment about your order"></textarea>
-                                    </div>
-
-                                    <div class="col-12">
+                 
+                                    <!-- <div class="col-12">
                                         <div class="custom-control custom-checkbox d-block mb-2">
                                             <input type="checkbox" class="custom-control-input" id="customCheck2">
                                             <label class="custom-control-label" for="customCheck2">Create an accout</label>
@@ -71,7 +66,7 @@ $check_active = "active";
                                             <input type="checkbox" class="custom-control-input" id="customCheck3">
                                             <label class="custom-control-label" for="customCheck3">Ship to a different address</label>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </form>
                         </div>
@@ -110,4 +105,4 @@ $check_active = "active";
     <!-- ##### Main Content Wrapper End ##### -->
 
     <!-- ##### Footer ##### -->
-    <?php include_once "../comp/footer.php"?>
+    <?php include_once "../comp/footer.php" ?>

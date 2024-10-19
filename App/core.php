@@ -4,6 +4,18 @@ session_start();
 define("ERROR_FILE", "C:/xampp/htdocs/My_folder/Funday/Olaaa/errors.log");
 
 
+// TEMP CART SIMULATION START
+
+$inCart = getTopProducts(3);
+$inCartCount = count($inCart);
+$totalPrice = 0;
+$delivery = 1000;
+
+foreach ($inCart as $product) {
+    $totalPrice += $product['price'];
+}
+
+// TEMP CART SIMULATION END
 
 function logError($message) {
     $backtrace = debug_backtrace();

@@ -25,9 +25,9 @@
         <ul>
             <li class="<?= isset($home_active) ? $home_active : "" ?>"><a href="index.php">Home</a></li>
             <li class="<?= isset($shop_active) ? $shop_active : "" ?>"><a href="shop.php">Shop</a></li>
-            <li class="<?= isset($product_active) ? $product_active : "" ?>" style="<?=(!isset($_SESSION['single_product']))? 'display:none;' : ''?>"><a href="product-details.php">Product</a></li>
+            <li class="<?= isset($product_active) ? $product_active : "" ?>" style="<?= (!isset($_SESSION['single_product'])) ? 'display:none;' : '' ?>"><a href="product-details.php">Product</a></li>
             <li class="<?= isset($cart_active) ? $cart_active : "" ?>"><a href="cart.php">Cart</a></li>
-            <li class="<?= isset($check_active) ? $check_active : "" ?>"><a href="checkout.php">Checkout</a></li>
+            <li class="<?= isset($profile_active) ? $profile_active : "" ?>"><a href="profile.php">Profile</a></li>
             <li>
                 <form method="POST" action="../auth.php">
                     <button type="submit" name="logout">Log Out</button>
@@ -38,7 +38,8 @@
     </nav>
     <!-- Button Group -->
     <div class="amado-btn-group mt-30 mb-100">
-        <a href="#" class="btn amado-btn mb-15">%Discount%</a>
+        <?=($inCartCount > 0 and !isset($check_active)) ? "<a href='checkout.php' id='animate-checkout' class='btn amado-btn mb-15'>Checkout</a>" : "" ?>
+       
         <form action="" method="POST">
             <button type="submit" name="newthisweek" class="btn amado-btn active">New this week</button>
         </form>

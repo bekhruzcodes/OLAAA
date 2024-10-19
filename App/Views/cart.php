@@ -6,12 +6,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $cart_active = "active";
-$totalPrice = 0;
-$delivery = 1000;
-
-foreach ($inCart as $product) {
-    $totalPrice += $product['price'];
-}
 
 ?>
 

@@ -242,3 +242,23 @@
         height: 100px;      /* Adjust the height again */
     }
 }
+
+
+@keyframes scaleButton {
+    0% {
+      transform: scale(1);
+      
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  #animate-checkout {
+    animation: scaleButton 2s ease-in-out 1; /* Animates only once */
+  }
+  
+
