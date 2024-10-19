@@ -492,4 +492,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submitReview'])) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in inserting new Review: " . $e->getMessage() . "\n\n";
         file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
     }
+    $_SESSION['product_reviews'] = getProductReviews($productId);
+    header("Location: product-details.php");
+    exit();
 }

@@ -1,2 +1,4 @@
-#### Navbardagi menu listda faqat bitta cart activeda turibdi, uni php bilan dynamic qilish kerak.
+#### Navbardagi menu listda faqat bitta cart activeda turibdi, uni php bilan dynamic qilish kerak. ####
+
+#### Form ishlatilgan qismlarda processingdan so'ng header location qilib yuborish kerak, aynan o'sha pageni o'ziga bo'lsa ham
 
