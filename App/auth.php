@@ -86,6 +86,7 @@ if (isset($_POST['log_user'])) {
     }
 }
 
+
 // Register User
 if (isset($_POST['sign_user'])) {
 

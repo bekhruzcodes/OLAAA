@@ -1,5 +1,10 @@
 <?php include_once "../comp/head.php";
 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $cart_active = "active";
 $totalPrice = 0;
 $delivery = 1000;

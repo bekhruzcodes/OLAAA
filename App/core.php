@@ -10,7 +10,7 @@ function logError($message) {
     $caller = $backtrace[0];
     $file = $caller['file'];
     $line = $caller['line'];
-    $errorMessage = "Error: $message in $file on line $line";
+    $errorMessage = "Error: $message in $file on line $line\n\n";
     error_log($errorMessage, 3, ERROR_FILE);
 
 }
@@ -22,7 +22,7 @@ function connectToDatabase()
 
     $database = "playground_db";
     $user = "root";
-    $password = "sss";
+    $password = "";
     $host = "localhost";
 
 
