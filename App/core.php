@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define("ERROR_FILE", "../errors.txt");
+define("ERROR_FILE", "C:/xampp/htdocs/My_folder/Funday/Olaaa/errors.txt");
 
 function connectToDatabase()
 {
@@ -19,7 +19,7 @@ function connectToDatabase()
         return $conn;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Database connection error: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
         return null;
     }
 }
@@ -64,7 +64,7 @@ function getAllProducts()
         return $products;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL products: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
@@ -178,7 +178,7 @@ function GetCategories()
         return $catgories;
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select ALL Catgories: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
@@ -203,7 +203,7 @@ function getRating($id)
     } catch (Throwable $e) {
 
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select Single product rating: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
         return 0;
     }
 }
@@ -253,7 +253,7 @@ function getSingleProduct($id)
         }
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select Single product: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
@@ -290,7 +290,7 @@ function getProductReviews($id)
       
     } catch (PDOException $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] SQL query error in select product Reviews: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
 
         return [];
     }
@@ -316,7 +316,7 @@ function insertReview($user_id, $listing_id, $rating, $text){
        
     } catch (\Throwable $e) {
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in inserting new Review to Database: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
 
     }
     
@@ -342,7 +342,7 @@ if (isset($_GET['single_id'])) {
     } catch (Throwable $e) {
 
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in setting single product and its reviews to SESSION: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
     }
 }
 
@@ -366,7 +366,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submitReview'])) {
     } catch (Throwable $e) {
 
         $errorMessage = "[" . date("Y-m-d H:i:s") . "] Error in inserting new Review: " . $e->getMessage() . "\n\n";
-        file_put_contents("../" . ERROR_FILE, $errorMessage, FILE_APPEND);
+        file_put_contents( ERROR_FILE, $errorMessage, FILE_APPEND);
     }
 
 }
