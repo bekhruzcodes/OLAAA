@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-define("ERROR_FILE", "C:/xampp/htdocs/My_folder/Funday/Olaaa/errors.log");
+define("ERROR_FILE", "C:/xampp/htdocs/My_folder/Funday/Olaaa/errors.txt");
 
 
 // TEMP CART SIMULATION START
@@ -23,7 +23,8 @@ function logError($message) {
     $file = $caller['file'];
     $line = $caller['line'];
     $errorMessage = "Error: $message in $file on line $line\n\n";
-    error_log($errorMessage, 3, ERROR_FILE);
+    file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
+    
 
 }
 

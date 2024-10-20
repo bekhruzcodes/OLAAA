@@ -1,0 +1,6 @@
+Error: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 48
+
+Error: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 48
+
+Error: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 48
+
