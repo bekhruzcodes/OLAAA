@@ -30,7 +30,7 @@ if (!empty($cart)) {
 
 $inCartCount = count($inCart);
 
-$delivery = 1000;
+$delivery = ($totalPrice>0)? 299 : 0;
 
 
 

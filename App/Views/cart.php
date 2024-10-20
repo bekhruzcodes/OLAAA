@@ -13,7 +13,7 @@ $cart_active = "active";
 
         <?php include_once "../comp/navbar.php" ?>
 
-        <div class="cart-table-area section-padding-100">
+        <div class="cart-table-area section-padding-10">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-lg-8">
@@ -65,7 +65,7 @@ $cart_active = "active";
                             <h5>Cart Total</h5>
                             <ul class="summary-table">
                                 <li><span>subtotal:</span> <span id="subtotal-price">$<?=$totalPrice?></span></li>
-                                <li><span>delivery:</span> <span id="shipping-fee"><?=($delivery>0)? "$"."{$delivery}" : 'Free'?></span></li>
+                                <li><span>delivery:</span> <span id="shipping-fee"><?=($delivery>0 )? "$"."{$delivery}" : 'Free'?></span></li>
                                 <li><span>total:</span> <span id="total-price">$<?=$totalPrice+$delivery?></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
