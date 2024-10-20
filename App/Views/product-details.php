@@ -94,7 +94,7 @@ $product_active = "active";
                             </div>
 
                             <!-- Add to Cart Form -->
-                            <form class="cart clearfix" method="POST">
+                            <form class="cart clearfix" action="../core.php" method="POST">
                                 <div class="cart-btn d-flex mb-50">
                                     <p>Quantity</p>
                                     <div class="quantity">

@@ -6,16 +6,47 @@ define("ERROR_FILE", "C:/xampp/htdocs/My_folder/Funday/Olaaa/errors.txt");
 
 // TEMP CART SIMULATION START
 
-$inCart = getTopProducts(3);
-$inCartCount = count($inCart);
 $totalPrice = 0;
-$delivery = 1000;
+$cart = null;
 
-foreach ($inCart as $product) {
-    $totalPrice += $product['price'];
+if (isset($_SESSION['user_id'])) {
+    $cart = getUserCart($_SESSION['user_id']);
+
+} else if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    $cart = $_SESSION['cart'];
+
+} else {
+    $_SESSION['cart'] = [];
+    $cart = [];
 }
 
+if (!empty($cart)) {
+    $inCart = getProductsByIds($cart);
+    $totalPrice = cartTotal($inCart, $cart);
+
+} else {
+    $inCart = [];
+}
+
+$inCartCount = count($inCart);
+
+$delivery = 1000;
+
+
+
+
+
 // TEMP CART SIMULATION END
+
+function cartTotal($inCart, $cart){
+    $totalPrice = 0;
+    foreach ($inCart as $product) {
+        $totalPrice += $product['price'] * $cart[$product['id']];
+    }
+
+    return $totalPrice;
+}
+
 
 function logError($message) {
     $backtrace = debug_backtrace();
@@ -28,7 +59,18 @@ function logError($message) {
 
 }
 
-
+function getUserCart($userId) {
+    $cart = [];
+    $pdo = connectToDatabase();
+    $stmt = $pdo->prepare("SELECT listing_id, quantity FROM cart WHERE user_id = ?");
+    $stmt->execute([$userId]);
+    
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $cart[$row['listing_id']] = $row['quantity'];
+    }
+    
+    return $cart;
+}
 
 function connectToDatabase()
 {
@@ -143,6 +185,57 @@ function getTopProducts($limit = 6)
     } catch (PDOException $e) {
         logError($e->getMessage());
 
+        return [];
+    }
+}
+
+
+function getProductsByIds($cart)
+{
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return [];
+    }
+
+    // Get the keys (IDs) from the cart array
+    $ids = array_keys($cart);
+    
+    // Prepare a string with placeholders for the IDs
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+
+    try {
+        $sql = "SELECT 
+                    listings.listing_id as 'id', 
+                    listings.seller_id, 
+                    listings.title, 
+                    listings.description as 'about', 
+                    listings.price, 
+                    categories.category_name as 'category', 
+                    listings.image_url as 'image', 
+                    listings.created_at as 'time', 
+                    listings.location, 
+                    listings.status
+                FROM 
+                    listings 
+                LEFT JOIN 
+                    categories 
+                ON 
+                    categories.category_id = listings.category_id 
+                WHERE 
+                    listings.status != 'inactive' 
+                    AND listings.listing_id IN ($placeholders);";
+
+        $stmt = $conn->prepare($sql);
+        
+        // Bind the IDs to the placeholders
+        $stmt->execute($ids);
+
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;
+    } catch (PDOException $e) {
+        logError($e->getMessage());
         return [];
     }
 }
@@ -438,6 +531,120 @@ function insertReview($user_id, $listing_id, $rating, $text)
 }
 
 
+function addToCart() {
+    $db = connectToDatabase();
+    $product_id = $_POST['addtocart'];
+    $quantity = isset($_POST['quantity'])?$_POST['quantity'] : 1;
+
+    // Check if user is logged in
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        // Add to database cart
+        $query = "INSERT INTO cart (user_id, listing_id, quantity) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE quantity = quantity + ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$user_id, $product_id, $quantity, $quantity]);
+    } else {
+        // Use session cart for non-logged users
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+        if (isset($_SESSION['cart'][$product_id])) {
+            $_SESSION['cart'][$product_id] += $quantity; // Update quantity
+        } else {
+            $_SESSION['cart'][$product_id] = $quantity; // Add new item
+        }
+    }
+    return true;
+}
+
+
+// function getCart() {
+//     $db = connectToDatabase();
+//     $cart = [];
+
+//     // Check if user is logged in
+//     if (isset($_SESSION['user_id'])) {
+//         $user_id = $_SESSION['user_id'];
+//         $query = "SELECT listing_id, quantity FROM cart WHERE user_id = ?";
+//         $stmt = $db->prepare($query);
+//         $stmt->execute([$user_id]);
+//         $cart = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//     } else {
+//         // Use session cart for non-logged users
+//         if (isset($_SESSION['cart'])) {
+//             $cart = $_SESSION['cart'];
+//         }
+//     }
+//     return $cart;
+// }
+
+
+
+function updateCart() {
+    $db = connectToDatabase();
+    $product_id = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    if ($quantity == 0) {
+        removeFromCart();
+    }
+
+    // Check if user is logged in
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $query = "UPDATE cart SET quantity = ? WHERE user_id = ? AND listing_id = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$quantity, $user_id, $product_id]);
+    } else {
+        // Update session cart for non-logged users
+        if (isset($_SESSION['cart'][$product_id])) {
+            $_SESSION['cart'][$product_id] = $quantity;
+        }
+    }
+    return true;
+}
+
+function removeFromCart() {
+    $db = connectToDatabase();
+    $product_id = $_POST['product_id'];
+
+    // Check if user is logged in
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $query = "DELETE FROM cart WHERE user_id = ? AND listing_id = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$user_id, $product_id]);
+    } else {
+        // Remove from session cart for non-logged users
+        if (isset($_SESSION['cart'][$product_id])) {
+            unset($_SESSION['cart'][$product_id]);
+        }
+    }
+    return true;
+}
+
+function mergeCarts() {
+    $db = connectToDatabase();
+    $user_id = $_SESSION['user_id'] ?? null;
+
+    if ($user_id && isset($_SESSION['cart'])) {
+        $session_cart = $_SESSION['cart'];
+        foreach ($session_cart as $product_id => $quantity) {
+            $query = "INSERT INTO cart (user_id, listing_id, quantity) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE quantity = ?";
+            $stmt = $db->prepare($query);
+            $stmt->execute([$user_id, $product_id, $quantity, $quantity]);
+        }
+        // Clear session cart after merging
+        unset($_SESSION['cart']);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+
 // index.php call
 if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
     $products = $_SESSION['products'];
@@ -506,4 +713,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submitReview'])) {
     $_SESSION['product_reviews'] = getProductReviews($productId);
     header("Location: product-details.php");
     exit();
+}
+
+if(isset($_POST['addtocart'])){
+   addToCart();
+
+    
+    if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
+        // Redirect to the referring page
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+    } else {
+        // Fallback redirect if HTTP_REFERER is not set
+        header("Location: product-details.php"); 
+    }
+    exit(); 
+
+}
+
+// Catch the AJAX request 
+if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['product_id']) and isset($_POST['quantity'])) {
+    updateCart();
 }

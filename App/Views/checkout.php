@@ -1,4 +1,10 @@
 <?php include_once "../comp/head.php";
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $check_active = "active";
 ?>
 

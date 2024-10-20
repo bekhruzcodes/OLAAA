@@ -65,6 +65,8 @@ document.getElementById('writeReviewLink').addEventListener('click', function (e
 // ### Reviews End ###
 
 
+
+
 // ### Cart Start ###
 
 // Function to decrease the quantity and handle row removal
@@ -77,7 +79,7 @@ function decreaseQty(productId, price) {
 
     // If the value becomes 0, remove the entire row from the table
     if (currentValue == 1) {
-        removeFromCart(productId);
+        currentValue -= 1;
         cartItemRow.remove();
     } else if (currentValue > 1) {
         currentValue -= 1;
@@ -85,6 +87,7 @@ function decreaseQty(productId, price) {
 
     }
     updateCartTotal(false, price);
+    updateCart(productId, currentValue);
 
 }
 
@@ -97,6 +100,7 @@ function increaseQty(productId, price) {
         currentValue += 1;
         qtyInput.value = currentValue;
         updateCartTotal(true, price); // true for increasing
+        updateCart(productId, currentValue);
     }
 }
 
@@ -137,24 +141,25 @@ function updateCartTotal(isAdd, price) {
 
 
 
-// Function to call PHP and remove the item from the cart
-function removeFromCart(productId) {
-    const xhr = new XMLHttpRequest();  // Create new AJAX request
-    xhr.open("POST", "remove_from_cart.php", true);  // Specify the PHP file to call
+function updateCart(productId, quantity) {
+    const xhr = new XMLHttpRequest();  // Create a new AJAX request
+    xhr.open("POST", "../core.php", true);  // Specify the PHP file to call
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    // Send the request with item details (e.g., item ID)
-    xhr.send(`item_id=${productId}`);
+    // Send the request with product_id and quantity
+    xhr.send(`product_id=${productId}&quantity=${quantity}`);
 
     // Handle the response
     xhr.onload = function () {
         if (xhr.status === 200) {
-            console.log("Item removed from cart");
+            console.log("Cart updated successfully");
         } else {
-            console.error("Failed to remove item from cart");
+            console.error("Failed to update cart");
         }
     };
 }
+
+
 // ### Cart End ###
 
 

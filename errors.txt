@@ -14,3 +14,8 @@ Error: Failed to log user in form processing in C:\xampp\htdocs\My_folder\Funday
 
 Error: Failed to log user in form processing in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\auth.php on line 82
 
+Error: AJAX request to update cart item recieved amount: 2 ID:  1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 729
+
+Error: AJAX request to update cart item recieved amount: 3 ID:  1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 729
+
+That was test-check.

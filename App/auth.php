@@ -16,6 +16,7 @@ function loginUser($email, $password)
 
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_role'] = $user['role'];
+            mergeCarts();
 
             return true;
         }

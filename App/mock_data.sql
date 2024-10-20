@@ -217,6 +217,19 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `contact_info`, 
 --
 -- Indexes for dumped tables
 --
+CREATE TABLE cart (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    listing_id INT,
+    quantity INT NOT NULL DEFAULT 1,  
+    added_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (listing_id) REFERENCES listings(listing_id) ON DELETE SET NULL
+);
+
+ALTER TABLE cart
+ADD CONSTRAINT unique_user_listing UNIQUE (user_id, listing_id);
 
 --
 -- Indexes for table `categories`

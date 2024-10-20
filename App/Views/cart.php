@@ -1,9 +1,5 @@
 <?php include_once "../comp/head.php";
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 
 $cart_active = "active";
 
@@ -52,7 +48,7 @@ $cart_active = "active";
                                                 <p>Qty</p>
                                                 <div class="quantity">
                                                     <span class="qty-minus" onclick="decreaseQty(<?=$cartItem['id']?>, <?=$cartItem['price']?>)"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                                    <input type="number" class="qty-text" id="qty-<?=$cartItem['id']?>" step="1" min="1" max="300" name="quantity" value="1" readonly>
+                                                    <input type="number" class="qty-text" id="qty-<?=$cartItem['id']?>" step="1" min="1" max="300" name="quantity" value="<?=$cart[$cartItem['id']]?>" readonly>
                                                     <span class="qty-plus" onclick="increaseQty(<?=$cartItem['id']?>, <?=$cartItem['price']?>)"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                 </div>
                                             </div>
@@ -73,7 +69,7 @@ $cart_active = "active";
                                 <li><span>total:</span> <span id="total-price">$<?=$totalPrice+$delivery?></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
-                                <a href="cart.php" class="btn amado-btn w-100">Checkout</a>
+                                <a href="checkout.php" class="btn amado-btn w-100">Checkout</a>
                             </div>
                         </div>
                     </div>
