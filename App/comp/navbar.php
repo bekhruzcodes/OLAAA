@@ -38,7 +38,7 @@
     </nav>
     <!-- Button Group -->
     <div class="amado-btn-group mt-30 mb-100">
-        <?=($inCartCount > 0 and !isset($check_active)) ? "<a href='checkout.php' id='animate-checkout' class='btn amado-btn mb-15'>Checkout</a>" : "" ?>
+        <?=($inCartCount > 3 and !isset($check_active)) ? "<a href='checkout.php' id='animate-checkout' class='btn amado-btn mb-15'>Checkout</a>" : "" ?>
        
         <form action="" method="POST">
             <button type="submit" name="newthisweek" class="btn amado-btn active">New this week</button>

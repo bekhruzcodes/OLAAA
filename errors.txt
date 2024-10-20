@@ -4,3 +4,13 @@ Error: SQLSTATE[HY000] [2002] No connection could be made because the target mac
 
 Error: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 48
 
+Error: SQLSTATE[HY000] [1049] Unknown database 'playground_db' in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 48
+
+Error: SQLSTATE[HY000] [1049] Unknown database 'playground_db' in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 48
+
+Error: Failed to log user in form processing in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\auth.php on line 82
+
+Error: Failed to log user in form processing in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\auth.php on line 82
+
+Error: Failed to log user in form processing in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\auth.php on line 82
+

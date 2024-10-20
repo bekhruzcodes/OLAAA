@@ -79,7 +79,7 @@ if (isset($_POST['log_user'])) {
             exit();
         } else {
 
-            logError("Failed to log user in form processing");
+            logError("Failed to log user in form processing / Password or Email incorrect");
             header("Location:Views/login.php");
             exit();
         }
