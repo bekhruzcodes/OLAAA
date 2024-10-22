@@ -19,3 +19,61 @@ Error: AJAX request to update cart item recieved amount: 2 ID:  1 in C:\xampp\ht
 Error: AJAX request to update cart item recieved amount: 3 ID:  1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 729
 
 That was test-check.
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''4' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''4' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''4' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''4' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 464
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 465
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''8' OFFSET '0'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 459
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '8'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
+

@@ -31,8 +31,14 @@ $shop_active = "active";
                     <ul>
                         <?php foreach ($categories as $category) { ?>
                             <!-- Add category ID as query parameter -->
-                            <li><a href="shop.php?category_id=<?= $category['category_id'] ?>"><?= $category['category_name'] ?></a></li>
+                            <li>
+                                <a href="shop.php?category_id=<?= $category['category_id'] ?>"
+                                    class="<?= (isset($_GET['category_id']) && $_GET['category_id'] == $category['category_id']) ? 'activeCategory' : '' ?>">
+                                    <?= $category['category_name'] ?>
+                                </a>
+                            </li>
                         <?php } ?>
+
                     </ul>
                 </div>
 

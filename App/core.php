@@ -15,35 +15,36 @@ if (isset($_SESSION['pageNumber'])) {
     $pageNumber = 1;
 }
 
-
+// Get current page
 $current_page = basename($_SERVER['PHP_SELF']);
 
-if ($current_page == 'shop.php') {
-    $products = getPaginatedProducts($pageNumber, $limit);
-    $totalProducts = getTotalProducts();
-
-} else if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
-    $products = $_SESSION['products'];
-    unset($_SESSION['products']);
-} else {
-    $products = getTopProducts();
-}
-
-
-
-
-
-
+// Fetch categories
 $categories = GetCategories();
 
+// Check if category filter is applied
 if (isset($_GET['category_id'])) {
-    $categoryId = $_GET['category_id'];
-    $products = getProductsByCategoryId($categoryId);
-    $products = addRatings($products);
+    $categoryId = intval($_GET['category_id']);
+
+    // Fetch products by category and apply pagination if needed
+    $products = getProductsByCategoryId($categoryId, $pageNumber, $limit);
+    $totalProducts = getTotalProductsByCategoryId($categoryId);  // New function to get total products by category
+} else if ($current_page == 'shop.php') {
+    // Fetch paginated products for shop.php
+    $products = getPaginatedProducts($pageNumber, $limit);
+    $totalProducts = getTotalProducts();  // Total products for the whole store
+} else if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
+    // Use products from session if available
+    $products = $_SESSION['products'];
+    unset($_SESSION['products']);
+    $totalProducts = count($products);  // Use session products count
 } else {
-    $products = addRatings($products);
+    // Fetch top products as fallback
+    $products = getTopProducts();
+    $totalProducts = count($products);
 }
 
+// Add ratings to products (optional)
+$products = addRatings($products);
 
 
 
@@ -127,6 +128,35 @@ function getPaginatedProducts($pageNumber = 1, $limit = 4)
         return [];
     }
 }
+
+
+
+
+function getTotalProducts()
+{
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return 0;
+    }
+
+    try {
+        // SQL query to count total active products
+        $sql = "SELECT COUNT(*) as total FROM listings WHERE status != 'inactive'";
+
+        // Prepare and execute the query
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        // Fetch and return the total product count
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    } catch (PDOException $e) {
+        logError($e->getMessage());
+        return 0;
+    }
+}
+
 
 
 
@@ -388,8 +418,7 @@ function getThisWeeksProducts()
     }
 }
 
-
-function getProductsByCategoryId($categoryId)
+function getProductsByCategoryId($categoryId, $pageNumber, $limit)
 {
     $conn = connectToDatabase();
 
@@ -398,7 +427,10 @@ function getProductsByCategoryId($categoryId)
     }
 
     try {
+        // Calculate the offset for pagination
+        $offset = ($pageNumber - 1) * $limit;
 
+        // Prepare the SQL query
         $sql = "SELECT 
                     listings.listing_id as 'id', 
                     listings.seller_id, 
@@ -418,11 +450,18 @@ function getProductsByCategoryId($categoryId)
                     categories.category_id = listings.category_id 
                 WHERE 
                     listings.category_id = ? 
-                    AND listings.status != 'inactive';";
+                    AND listings.status != 'inactive'
+                LIMIT ?, ?;";
 
+        // Prepare and execute the statement
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$categoryId]);
+        $stmt->bindParam(1, $categoryId, PDO::PARAM_INT);  // Bind categoryId as integer
+        $stmt->bindParam(2, $offset, PDO::PARAM_INT);      // Bind offset as integer
+        $stmt->bindParam(3, $limit, PDO::PARAM_INT);       // Bind limit as integer
 
+        $stmt->execute();
+
+        // Fetch results
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $products;
@@ -431,6 +470,36 @@ function getProductsByCategoryId($categoryId)
         return [];
     }
 }
+
+
+function getTotalProductsByCategoryId($categoryId)
+{
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return 0;
+    }
+
+    try {
+        // SQL query to count total products by category
+        $sql = "SELECT COUNT(*) as total FROM listings 
+                WHERE category_id = ? 
+                AND status != 'inactive'";
+
+        // Prepare and execute the query
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$categoryId]);
+
+        // Fetch and return the total product count
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    } catch (PDOException $e) {
+        logError($e->getMessage());
+        return 0;
+    }
+}
+
+
 
 
 
@@ -757,17 +826,7 @@ function mergeCarts()
 }
 
 
-function getTotalProducts() {
-    $conn = connectToDatabase();
-    $sql = "SELECT COUNT(*) as total FROM listings";
-    $result = $conn->query($sql);
-   
-    if ($result && $row = $result->fetch()) {
-        return $row['total']; 
-    } else {
-        return 0; 
-    }
-}
+
 
 
 
