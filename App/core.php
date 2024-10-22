@@ -4,6 +4,17 @@ session_start();
 define("ERROR_FILE", "C:/xampp/htdocs/My_folder/Funday/Olaaa/errors.txt");
 
 
+
+// index.php call
+if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
+    $products = $_SESSION['products'];
+    unset($_SESSION['products']);
+} else {
+    $products = getTopProducts();
+}
+
+
+
 // TEMP CART SIMULATION START
 
 $totalPrice = 0;
@@ -35,8 +46,6 @@ $delivery = ($totalPrice>0)? 299 : 0;
 
 
 
-
-// TEMP CART SIMULATION END
 
 function cartTotal($inCart, $cart){
     $totalPrice = 0;
@@ -558,28 +567,6 @@ function addToCart() {
 }
 
 
-// function getCart() {
-//     $db = connectToDatabase();
-//     $cart = [];
-
-//     // Check if user is logged in
-//     if (isset($_SESSION['user_id'])) {
-//         $user_id = $_SESSION['user_id'];
-//         $query = "SELECT listing_id, quantity FROM cart WHERE user_id = ?";
-//         $stmt = $db->prepare($query);
-//         $stmt->execute([$user_id]);
-//         $cart = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//     } else {
-//         // Use session cart for non-logged users
-//         if (isset($_SESSION['cart'])) {
-//             $cart = $_SESSION['cart'];
-//         }
-//     }
-//     return $cart;
-// }
-
-
-
 function updateCart() {
     $db = connectToDatabase();
     $product_id = $_POST['product_id'];
@@ -645,13 +632,6 @@ function mergeCarts() {
 
 
 
-// index.php call
-if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
-    $products = $_SESSION['products'];
-    unset($_SESSION['products']);
-} else {
-    $products = getTopProducts();
-}
 
 
 if (isset($_GET['search']) && !empty($_GET['search_inp'])) {

@@ -1115,6 +1115,7 @@ img {
       display: block; }
   .single-product-wrapper:hover .product-img .hover-img {
     opacity: 1;
+    scale: 1.2;
     visibility: visible; }
   .single-product-wrapper:hover .product-img .product-favourite a {
     opacity: 1;
