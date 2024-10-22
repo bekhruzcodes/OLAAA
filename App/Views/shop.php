@@ -84,12 +84,12 @@ $shop_active = "active";
                                 </div>
                                 <div class="view-product d-flex align-items-center">
                                     <p>View</p>
-                                    <form action="" method="GET">
+                                    <form action="../core.php" method="GET">
                                         <select name="limit" id="viewProduct" onchange="this.form.submit()">
-                                            <option value="4" <?= (isset($_GET['limit']) && $_GET['limit'] == 4) ? 'selected' : '' ?>>4</option>
-                                            <option value="8" <?= (isset($_GET['limit']) && $_GET['limit'] == 8) ? 'selected' : '' ?>>8</option>
-                                            <option value="16" <?= (isset($_GET['limit']) && $_GET['limit'] == 16) ? 'selected' : '' ?>>16</option>
-                                            <option value="32" <?= (isset($_GET['limit']) && $_GET['limit'] == 32) ? 'selected' : '' ?>>32</option>
+                                            <option value="4" <?= ($limit == 4) ? 'selected' : '' ?>>4</option>
+                                            <option value="8" <?= ($limit == 8) ? 'selected' : '' ?>>8</option>
+                                            <option value="16" <?= ($limit == 16) ? 'selected' : '' ?>>16</option>
+                                            <option value="32" <?= ($limit == 32) ? 'selected' : '' ?>>32</option>
                                         </select>
                                     </form>
                                 </div>

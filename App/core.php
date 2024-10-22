@@ -60,8 +60,13 @@ if (!empty($cart)) {
 $inCartCount = count($inCart);
 $delivery = ($totalPrice>0)? 299 : 0;
 
+if(isset($_SESSION['limit'])){
+    $limit = intval($_SESSION['limit']);
+}else {
+    $limit = 4;
+}
 $pageNumber = 1;  // Default page number
-$limit = 4;      // Default products per page
+      // Default products per page
 
 
 
@@ -823,4 +828,12 @@ if(isset($_POST['addtocart'])){
 // Catch the AJAX request 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['product_id']) and isset($_POST['quantity'])) {
     updateCart();
+}
+
+
+if (isset($_GET['limit'])) {
+
+    $_SESSION['limit'] = $_GET['limit'];
+    header("Location: Views/shop.php");
+    exit();
 }
