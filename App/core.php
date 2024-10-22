@@ -15,6 +15,24 @@ if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
 
 
 
+$categories = GetCategories();
+
+if (isset($_GET['category_id'])) {
+    $categoryId = $_GET['category_id'];
+    $products = getProductsByCategoryId($categoryId); 
+    $products = addRatings($products);
+
+    
+} else{
+    $products = addRatings($products);
+
+}
+
+
+
+
+
+
 // TEMP CART SIMULATION START
 
 $totalPrice = 0;
@@ -40,11 +58,18 @@ if (!empty($cart)) {
 }
 
 $inCartCount = count($inCart);
-
 $delivery = ($totalPrice>0)? 299 : 0;
 
 
 
+
+function addRatings($products){
+    foreach($products as &$product){
+        $product['rating'] = getRating($product['id']);
+
+    }
+    return $products;
+}
 
 
 function cartTotal($inCart, $cart){
@@ -298,17 +323,47 @@ function getThisWeeksProducts()
 
 function getProductsByCategoryId($categoryId)
 {
-
     $conn = connectToDatabase();
 
     if ($conn === null) {
         return [];
     }
 
-    $stmt = $conn->prepare("SELECT * FROM listings WHERE category_id = ?");
-    $stmt->execute([$categoryId]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    try {
+
+        $sql = "SELECT 
+                    listings.listing_id as 'id', 
+                    listings.seller_id, 
+                    listings.title, 
+                    listings.description as 'about', 
+                    listings.price, 
+                    categories.category_name as 'category', 
+                    listings.image_url as 'image', 
+                    listings.created_at as 'time', 
+                    listings.location, 
+                    listings.status
+                FROM 
+                    listings 
+                LEFT JOIN 
+                    categories 
+                ON 
+                    categories.category_id = listings.category_id 
+                WHERE 
+                    listings.category_id = ? 
+                    AND listings.status != 'inactive';";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$categoryId]);
+
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;
+    } catch (PDOException $e) {
+        logError($e->getMessage());
+        return [];
+    }
 }
+
 
 
 function filterByWord($products, $word)

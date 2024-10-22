@@ -1,28 +1,9 @@
-<?php 
-include_once "../comp/head.php";  
-$categories =GetCategories();
+<?php
+include_once "../comp/head.php";
+
 $shop_active = "active";
 
-// Check if category ID is passed in the URL
-if (isset($_GET['category_id'])) {
-    $categoryId = $_GET['category_id'];
 
-    // Query to get products based on the selected category
-    $products = getProductsByCategoryId($categoryId); // You need to implement this function
-
-    // Display the products here
-    // foreach ($products as $product) {
-    //     // Example of how to display the product
-    //     echo "<div class='product'>";
-    //     echo "<h3>" . $product['product_name'] . "</h3>";
-    //     echo "<p>Price: " . $product['price'] . "</p>";
-    //     echo "</div>";
-    // }
-} else {
-    // If no category is selected, show all products or a default category
-    // $products = getAllProducts(); // Implement this function to get all products
-
-}
 ?>
 
 
@@ -30,12 +11,12 @@ if (isset($_GET['category_id'])) {
 
 
 <body>
-    <?php include_once "../comp/search_box.php"?>
+    <?php include_once "../comp/search_box.php" ?>
 
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
 
-    <?php include_once "../comp/navbar.php"?>
+        <?php include_once "../comp/navbar.php" ?>
 
         <div class="shop_sidebar_area">
 
@@ -46,14 +27,14 @@ if (isset($_GET['category_id'])) {
 
                 <!--  Catagories  -->
                 <!-- Catagories Menu -->
-            <div class="catagories-menu">
-                <ul>
-                    <?php foreach($categories as $category){ ?>
-                        <!-- Add category ID as query parameter -->
-                        <li><a href="shop.php?category_id=<?= $category['category_id'] ?>"><?= $category['category_name'] ?></a></li>
-                    <?php } ?>
-                </ul>
-            </div>
+                <div class="catagories-menu">
+                    <ul>
+                        <?php foreach ($categories as $category) { ?>
+                            <!-- Add category ID as query parameter -->
+                            <li><a href="shop.php?category_id=<?= $category['category_id'] ?>"><?= $category['category_name'] ?></a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
 
             </div>
 
@@ -118,47 +99,46 @@ if (isset($_GET['category_id'])) {
                 </div>
 
                 <div class="row">
-
-                    <!-- Single Product Area -->
-                    <div class="col-12 col-sm-6 col-md-12 col-xl-6">
-                        <div class="single-product-wrapper">
-                            <!-- Product Image -->
-                            <div class="product-img">
-                                <img src="../../Public/img/product-img/product2.jpg" alt="">
-                                <!-- Hover Thumb -->
-                                <img class="hover-img" src="../../Public/img/product-img/product2.jpg" alt="">
-                            </div>
-
-                            <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
-                                <!-- Product Meta Data -->
-                                <div class="product-meta-data">
-                                    <div class="line"></div>
-                                    <p class="product-price">$180</p>
-                                    <a href="product-details.php">
-                                        <h6>Modern Chair</h6>
-                                    </a>
+                    <?php foreach ($products as $product) { ?>
+                        <!-- Single Product Area -->
+                        <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+                            <div class="single-product-wrapper">
+                                <!-- Product Image -->
+                                <div class="product-img">
+                                    <img src="../../<?= $product['image'] ?>" alt="Product">
+                                    <!-- Hover Thumb -->
+                                    <img class="hover-img" src="../../<?= $product['image'] ?>" alt="Image">
                                 </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
+
+                                <!-- Product Description -->
+                                <div class="product-description d-flex align-items-center justify-content-between">
+                                    <!-- Product Meta Data -->
+                                    <div class="product-meta-data">
+                                        <div class="line"></div>
+                                        <p class="product-price"><?= $product['price'] ?></p>
+                                        <a href="product-details.php">
+                                            <h6><?= $product['title'] ?></h6>
+                                        </a>
                                     </div>
-                                    <div class="cart">
-                                        <a href="cart.php" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="../../Public/img/core-img/cart.png" alt=""></a>
+                                    <!-- Ratings & Cart -->
+                                    <div class="ratings-cart text-right">
+                                        <div class="ratings">
+                                            <?php for ($i = 1; $i < 6; $i++) { ?>
+                                                <i class="<?= ($i > $product['rating']) ? 'fa fa-star-o' : 'fa fa-star' ?>" aria-hidden="true"></i>
+                                            <?php }; ?>
+                                        </div>
+                                        <div class="cart">
+                                            <a href="cart.php" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="../../Public/img/core-img/cart.png" alt=""></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    <?php } ?>
                 </div>
 
-<!-- Pagination -->
+                <!-- Pagination -->
                 <div class="row">
                     <div class="col-12">
                         <!-- Pagination -->
@@ -178,4 +158,4 @@ if (isset($_GET['category_id'])) {
     <!-- ##### Main Content Wrapper End ##### -->
 
     <!-- ##### Footer ##### -->
-    <?php include_once "../comp/footer.php"?>
+    <?php include_once "../comp/footer.php" ?>
