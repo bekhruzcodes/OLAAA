@@ -60,6 +60,61 @@ if (!empty($cart)) {
 $inCartCount = count($inCart);
 $delivery = ($totalPrice>0)? 299 : 0;
 
+$pageNumber = 1;  // Default page number
+$limit = 4;      // Default products per page
+
+
+
+function getPaginatedProducts($pageNumber=1, $limit=4)
+{
+
+    $conn = connectToDatabase();
+
+    if ($conn === null) {
+        return [];
+    }
+
+    try {
+        // Calculate the offset for pagination
+        $offset = ($pageNumber - 1) * $limit;
+
+        // SQL query with LIMIT and OFFSET for pagination
+        $sql = "SELECT 
+                    listings.listing_id as 'id', 
+                    listings.seller_id, 
+                    listings.title, 
+                    listings.description as 'about', 
+                    listings.price, 
+                    categories.category_name as 'category', 
+                    listings.image_url as 'image', 
+                    listings.created_at as 'time', 
+                    listings.location, 
+                    listings.status
+                FROM 
+                    listings 
+                LEFT JOIN 
+                    categories 
+                ON 
+                    categories.category_id = listings.category_id 
+                WHERE 
+                    listings.status != 'inactive'
+                LIMIT :limit OFFSET :offset;";  
+
+        // Prepare and bind parameters
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Fetch products for the current page
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;
+    } catch (PDOException $e) {
+        logError($e->getMessage());
+        return [];
+    }
+}
 
 
 

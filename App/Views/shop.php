@@ -68,7 +68,7 @@ $shop_active = "active";
                         <div class="product-topbar d-xl-flex align-items-end justify-content-between">
                             <!-- Total Products -->
                             <div class="total-products">
-                                <p>Showing 1-8 0f 25</p>
+                                <p>Showing <?=($limit*($pageNumber-1))?$limit*($pageNumber-1):1 ?>-<?=$limit*$pageNumber?> 0f <?=count($products)?></p>
                             </div>
                             <!-- Sorting -->
                             <div class="product-sorting d-flex">
