@@ -87,8 +87,8 @@ $shop_active = "active";
                                     <p>Sort by</p>
                                     <form action="#" method="get">
                                         <select name="select" id="sortBydate">
-                                            <option value="value">Date</option>
-                                            <option value="value">Newest</option>
+                                            <option value="value">New</option>
+                                            <option value="value">Cheap</option>
                                             <option value="value">Popular</option>
                                         </select>
                                     </form>
