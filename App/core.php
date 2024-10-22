@@ -432,8 +432,8 @@ function getSearchedProducts($pattern = "", $date = false, $priceRange = null)
     }
 
     if (!empty($priceRange) && is_array($priceRange)) {
-        $minPrice = isset($priceRange['min']) ? $priceRange['min'] : null;
-        $maxPrice = isset($priceRange['max']) ? $priceRange['max'] : null;
+        $minPrice = isset($priceRange['min']) ? floatval($priceRange['min']) : 10;
+        $maxPrice = isset($priceRange['max']) ? floatval($priceRange['max']) : 100000;
         $products = filterByPriceRange($products, $minPrice, $maxPrice);
     }
 

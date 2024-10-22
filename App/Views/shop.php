@@ -128,7 +128,13 @@ $shop_active = "active";
                                             <?php }; ?>
                                         </div>
                                         <div class="cart">
-                                            <a href="cart.php" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="../../Public/img/core-img/cart.png" alt=""></a>
+                                            <form action="cart.php" method="post">
+                                                <input type="hidden" name="addtocart" value="<?= $product['id'] ?>">
+                                                <button type="submit" data-toggle="tooltip" data-placement="left" title="Add to Cart" style="border: none; background: none;">
+                                                    <img src="../../Public/img/core-img/cart.png" alt="">
+                                                </button>
+                                            </form>
+
                                         </div>
                                     </div>
                                 </div>
