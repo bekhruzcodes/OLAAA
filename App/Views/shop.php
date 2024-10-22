@@ -68,8 +68,13 @@ $shop_active = "active";
                         <div class="product-topbar d-xl-flex align-items-end justify-content-between">
                             <!-- Total Products -->
                             <div class="total-products">
-                                <p>Showing <?=($limit*($pageNumber-1))?$limit*($pageNumber-1):1 ?>-<?=$limit*$pageNumber?> 0f <?=count($products)?></p>
+                                <p>Showing
+                                    <?= ($limit * ($pageNumber - 1) + 1) ?> -
+                                    <?= ($limit * $pageNumber > $totalProducts) ? $totalProducts : $limit * $pageNumber ?>
+                                    of <?= $totalProducts ?>
+                                </p>
                             </div>
+
                             <!-- Sorting -->
                             <div class="product-sorting d-flex">
                                 <div class="sort-by-date d-flex align-items-center mr-15">
@@ -116,7 +121,7 @@ $shop_active = "active";
                                     <div class="product-meta-data">
                                         <div class="line"></div>
                                         <p class="product-price"><?= $product['price'] ?></p>
-                                        <a href="../core.php?single_id=<?=$product['id']?>">
+                                        <a href="../core.php?single_id=<?= $product['id'] ?>">
                                             <h6><?= $product['title'] ?></h6>
                                         </a>
                                     </div>
@@ -150,10 +155,13 @@ $shop_active = "active";
                         <!-- Pagination -->
                         <nav aria-label="navigation">
                             <ul class="pagination justify-content-end mt-50">
-                                <li class="page-item active"><a class="page-link" href="#">01.</a></li>
-                                <li class="page-item"><a class="page-link" href="#">02.</a></li>
-                                <li class="page-item"><a class="page-link" href="#">03.</a></li>
-                                <li class="page-item"><a class="page-link" href="#">04.</a></li>
+                                <?php
+                                if ($totalProducts > $limit) {
+                                    for ($i = 1; $i <= ceil($totalProducts / $limit); $i += 1) { ?>
+                                        <li class="page-item <?= ($i == $pageNumber) ? 'active' : '' ?>"><a class="page-link" href="../core.php?pageNumber=<?= $i ?>"><?= $i ?>.</a></li>
+
+                                <?php }
+                                } ?>
                             </ul>
                         </nav>
                     </div>

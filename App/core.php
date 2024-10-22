@@ -3,10 +3,26 @@ session_start();
 
 define("ERROR_FILE", "C:/xampp/htdocs/My_folder/Funday/Olaaa/errors.txt");
 
+if (isset($_SESSION['limit'])) {
+    $limit = intval($_SESSION['limit']);
+} else {
+    $limit = 4;
+}
+
+if (isset($_SESSION['pageNumber'])) {
+    $pageNumber = intval($_SESSION['pageNumber']);
+} else {
+    $pageNumber = 1;
+}
 
 
-// index.php call
-if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
+$current_page = basename($_SERVER['PHP_SELF']);
+
+if ($current_page == 'shop.php') {
+    $products = getPaginatedProducts($pageNumber, $limit);
+    $totalProducts = getTotalProducts();
+
+} else if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
     $products = $_SESSION['products'];
     unset($_SESSION['products']);
 } else {
@@ -15,17 +31,17 @@ if (isset($_SESSION['products']) and !empty($_SESSION['products'])) {
 
 
 
+
+
+
 $categories = GetCategories();
 
 if (isset($_GET['category_id'])) {
     $categoryId = $_GET['category_id'];
-    $products = getProductsByCategoryId($categoryId); 
+    $products = getProductsByCategoryId($categoryId);
     $products = addRatings($products);
-
-    
-} else{
+} else {
     $products = addRatings($products);
-
 }
 
 
@@ -40,10 +56,8 @@ $cart = null;
 
 if (isset($_SESSION['user_id'])) {
     $cart = getUserCart($_SESSION['user_id']);
-
 } else if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     $cart = $_SESSION['cart'];
-
 } else {
     $_SESSION['cart'] = [];
     $cart = [];
@@ -52,25 +66,18 @@ if (isset($_SESSION['user_id'])) {
 if (!empty($cart)) {
     $inCart = getProductsByIds($cart);
     $totalPrice = cartTotal($inCart, $cart);
-
 } else {
     $inCart = [];
 }
 
 $inCartCount = count($inCart);
-$delivery = ($totalPrice>0)? 299 : 0;
-
-if(isset($_SESSION['limit'])){
-    $limit = intval($_SESSION['limit']);
-}else {
-    $limit = 4;
-}
-$pageNumber = 1;  // Default page number
-      // Default products per page
+$delivery = ($totalPrice > 0) ? 299 : 0;
 
 
 
-function getPaginatedProducts($pageNumber=1, $limit=4)
+
+
+function getPaginatedProducts($pageNumber = 1, $limit = 4)
 {
 
     $conn = connectToDatabase();
@@ -103,7 +110,7 @@ function getPaginatedProducts($pageNumber=1, $limit=4)
                     categories.category_id = listings.category_id 
                 WHERE 
                     listings.status != 'inactive'
-                LIMIT :limit OFFSET :offset;";  
+                LIMIT :limit OFFSET :offset;";
 
         // Prepare and bind parameters
         $stmt = $conn->prepare($sql);
@@ -123,16 +130,17 @@ function getPaginatedProducts($pageNumber=1, $limit=4)
 
 
 
-function addRatings($products){
-    foreach($products as &$product){
+function addRatings($products)
+{
+    foreach ($products as &$product) {
         $product['rating'] = getRating($product['id']);
-
     }
     return $products;
 }
 
 
-function cartTotal($inCart, $cart){
+function cartTotal($inCart, $cart)
+{
     $totalPrice = 0;
     foreach ($inCart as $product) {
         $totalPrice += $product['price'] * $cart[$product['id']];
@@ -142,27 +150,27 @@ function cartTotal($inCart, $cart){
 }
 
 
-function logError($message) {
+function logError($message)
+{
     $backtrace = debug_backtrace();
     $caller = $backtrace[0];
     $file = $caller['file'];
     $line = $caller['line'];
     $errorMessage = "Error: $message in $file on line $line\n\n";
     file_put_contents(ERROR_FILE, $errorMessage, FILE_APPEND);
-    
-
 }
 
-function getUserCart($userId) {
+function getUserCart($userId)
+{
     $cart = [];
     $pdo = connectToDatabase();
     $stmt = $pdo->prepare("SELECT listing_id, quantity FROM cart WHERE user_id = ?");
     $stmt->execute([$userId]);
-    
+
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $cart[$row['listing_id']] = $row['quantity'];
     }
-    
+
     return $cart;
 }
 
@@ -294,7 +302,7 @@ function getProductsByIds($cart)
 
     // Get the keys (IDs) from the cart array
     $ids = array_keys($cart);
-    
+
     // Prepare a string with placeholders for the IDs
     $placeholders = implode(',', array_fill(0, count($ids), '?'));
 
@@ -321,7 +329,7 @@ function getProductsByIds($cart)
                     AND listings.listing_id IN ($placeholders);";
 
         $stmt = $conn->prepare($sql);
-        
+
         // Bind the IDs to the placeholders
         $stmt->execute($ids);
 
@@ -344,7 +352,7 @@ function getThisWeeksProducts()
     }
 
     try {
-        
+
         $sql = "SELECT 
                     listings.listing_id as 'id', 
                     listings.seller_id, 
@@ -655,10 +663,11 @@ function insertReview($user_id, $listing_id, $rating, $text)
 }
 
 
-function addToCart() {
+function addToCart()
+{
     $db = connectToDatabase();
     $product_id = $_POST['addtocart'];
-    $quantity = isset($_POST['quantity'])?$_POST['quantity'] : 1;
+    $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 1;
 
     // Check if user is logged in
     if (isset($_SESSION['user_id'])) {
@@ -682,7 +691,8 @@ function addToCart() {
 }
 
 
-function updateCart() {
+function updateCart()
+{
     $db = connectToDatabase();
     $product_id = $_POST['product_id'];
     $quantity = $_POST['quantity'];
@@ -706,7 +716,8 @@ function updateCart() {
     return true;
 }
 
-function removeFromCart() {
+function removeFromCart()
+{
     $db = connectToDatabase();
     $product_id = $_POST['product_id'];
 
@@ -725,7 +736,8 @@ function removeFromCart() {
     return true;
 }
 
-function mergeCarts() {
+function mergeCarts()
+{
     $db = connectToDatabase();
     $user_id = $_SESSION['user_id'] ?? null;
 
@@ -745,6 +757,21 @@ function mergeCarts() {
 }
 
 
+function getTotalProducts() {
+    $conn = connectToDatabase();
+    $sql = "SELECT COUNT(*) as total FROM listings";
+    $result = $conn->query($sql);
+   
+    if ($result && $row = $result->fetch()) {
+        return $row['total']; 
+    } else {
+        return 0; 
+    }
+}
+
+
+
+
 
 
 
@@ -758,16 +785,15 @@ if (isset($_GET['search']) && !empty($_GET['search_inp'])) {
 }
 
 
-if (isset($_POST['newthisweek']) ) {
+if (isset($_POST['newthisweek'])) {
 
-    if ( isset($_SESSION['products'])&& !empty($_SESSION['products'])) {
-        $_SESSION['products'] = filterByLastWeek($_SESSION['products'] );
+    if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
+        $_SESSION['products'] = filterByLastWeek($_SESSION['products']);
     } else {
         $_SESSION['products'] = getThisWeeksProducts();
     }
     header("Location: index.php");
     exit();
-   
 }
 
 
@@ -803,26 +829,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST['submitReview'])) {
     } catch (Throwable $e) {
 
         logError($e->getMessage());
-
     }
     $_SESSION['product_reviews'] = getProductReviews($productId);
     header("Location: product-details.php");
     exit();
 }
 
-if(isset($_POST['addtocart'])){
-   addToCart();
+if (isset($_POST['addtocart'])) {
+    addToCart();
 
-    
+
     if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
         // Redirect to the referring page
         header("Location: " . $_SERVER['HTTP_REFERER']);
     } else {
         // Fallback redirect if HTTP_REFERER is not set
-        header("Location: product-details.php"); 
+        header("Location: product-details.php");
     }
-    exit(); 
-
+    exit();
 }
 
 // Catch the AJAX request 
@@ -834,6 +858,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' and isset($_POST['product_id']) and iss
 if (isset($_GET['limit'])) {
 
     $_SESSION['limit'] = $_GET['limit'];
+    $_SESSION['pageNumber'] = 1;
+    header("Location: Views/shop.php");
+    exit();
+}
+
+if (isset($_GET['pageNumber'])) {
+
+    $_SESSION['pageNumber'] = $_GET['pageNumber'];
     header("Location: Views/shop.php");
     exit();
 }
