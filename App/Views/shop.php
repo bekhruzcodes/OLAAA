@@ -116,7 +116,7 @@ $shop_active = "active";
                                     <div class="product-meta-data">
                                         <div class="line"></div>
                                         <p class="product-price"><?= $product['price'] ?></p>
-                                        <a href="product-details.php">
+                                        <a href="../core.php?single_id=<?=$product['id']?>">
                                             <h6><?= $product['title'] ?></h6>
                                         </a>
                                     </div>
