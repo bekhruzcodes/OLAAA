@@ -15,35 +15,32 @@ if (isset($_SESSION['pageNumber'])) {
     $pageNumber = 1;
 }
 
-// Get current page
+
 $current_page = basename($_SERVER['PHP_SELF']);
 
-// Fetch categories
 $categories = GetCategories();
 
-// Check if category filter is applied
 if (isset($_GET['category_id'])) {
     $categoryId = intval($_GET['category_id']);
 
-    // Fetch products by category and apply pagination if needed
     $products = getProductsByCategoryId($categoryId, $pageNumber, $limit);
-    $totalProducts = getTotalProductsByCategoryId($categoryId);  // New function to get total products by category
+    $totalProducts = getTotalProductsByCategoryId($categoryId);  
 } else if ($current_page == 'shop.php') {
-    // Fetch paginated products for shop.php
+   
     $products = getPaginatedProducts($pageNumber, $limit);
-    $totalProducts = getTotalProducts();  // Total products for the whole store
+    $totalProducts = getTotalProducts();  
 } else if (isset($_SESSION['products']) && !empty($_SESSION['products'])) {
-    // Use products from session if available
+   
     $products = $_SESSION['products'];
     unset($_SESSION['products']);
-    $totalProducts = count($products);  // Use session products count
+    $totalProducts = count($products);  
 } else {
-    // Fetch top products as fallback
+    
     $products = getTopProducts();
     $totalProducts = count($products);
 }
 
-// Add ratings to products (optional)
+
 $products = addRatings($products);
 
 
