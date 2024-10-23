@@ -69,7 +69,7 @@ $cart_active = "active";
                                 <li><span>total:</span> <span id="total-price">$<?=$totalPrice+$delivery?></span></li>
                             </ul>
                             <div class="cart-btn mt-100">
-                                <a href="checkout.php" class="btn amado-btn w-100">Checkout</a>
+                                <a href="<?=($totalPrice==0)? '': 'checkout.php' ?>"  class="btn amado-btn w-100">Checkout</a>
                             </div>
                         </div>
                     </div>

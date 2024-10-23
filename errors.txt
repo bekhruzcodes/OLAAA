@@ -118,3 +118,15 @@ Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error
 Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BETWEEN 10 AND 1000' at line 1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 174
 
 Aiii
+Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 970
+
+Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 987
+
+Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 987
+
+Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 987
+
+Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 987
+
+Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 987
+

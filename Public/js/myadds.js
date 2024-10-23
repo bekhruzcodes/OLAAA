@@ -269,8 +269,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+function togglePaymentMethod() {
+    const codCheckbox = document.getElementById("cod");
+    const cardInfo = document.getElementById("card-info");
+    const cardHolder = document.getElementById("card-holder");
+    const expDate = document.getElementById("exp-date");
+    const fullNameContainer = document.getElementById("fullNameContainer");
+
+    if (codCheckbox.checked) {
+        cardInfo.style.display = "none";
+        cardHolder.style.display = "none";
+        expDate.style.display = "none";
+        fullNameContainer.style.display = "block"; 
+    } else {
+        cardInfo.style.display = "block";
+        cardHolder.style.display = "block";
+        expDate.style.display = "block";
+        fullNameContainer.style.display = "none"; 
+    }
+}
 
 
+function validateAndSubmit() {
+    const form = document.getElementById('checkoutForm');
+    const requiredInputs = form.querySelectorAll('input[required], select[required]');
+    
+    let allFilled = true;
+
+    requiredInputs.forEach(input => {
+        if (input.offsetParent !== null) { 
+            if (!input.value) {
+                allFilled = false; 
+                input.classList.add('is-invalid'); 
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        }
+    });
+
+  
+    if (allFilled) {
+        form.submit();
+        alert("Thank you, we recieved your purchase.");
+    } else {
+        alert("Please fill in all required fields."); 
+    }
+}
 
 
 
