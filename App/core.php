@@ -49,10 +49,16 @@ if (isset($_GET['category_id'])) {
     $products = $_SESSION['products'];
     unset($_SESSION['products']);
     $totalProducts = count($products);  
-} else {
-    
+} else if(isset($_SESSION['getTop'])) { 
+    unset($_SESSION['getTop']);
     $products = getTopProducts();
     $totalProducts = count($products);
+    
+} else {
+    
+    $products = getPaginatedProducts(1, 6);
+    $totalProducts = count($products);
+   
 }
 
 
@@ -1037,5 +1043,11 @@ if (isset($_POST['checkoutSubmit'])) {
 
     clearCart();
     header("Location: Views/checkout.php");
+    exit();
+}
+
+if (isset($_GET['getTop'])) {
+    $_SESSION['getTop'] = 1;
+    header("Location: Views/index.php");
     exit();
 }

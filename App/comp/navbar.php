@@ -28,17 +28,12 @@
             <li class="<?= isset($product_active) ? $product_active : "" ?>" style="<?= (!isset($_SESSION['single_product'])) ? 'display:none;' : '' ?>"><a href="product-details.php">Product</a></li>
             <li class="<?= isset($cart_active) ? $cart_active : "" ?>"><a href="cart.php">Cart</a></li>
             <li class="<?= isset($profile_active) ? $profile_active : "" ?>"><a href="profile.php">Profile</a></li>
-            <li>
-                <form method="POST" action="../auth.php">
-                    <button type="submit" name="logout">Log Out</button>
-                </form>
-            </li>
 
         </ul>
     </nav>
     <!-- Button Group -->
     <div class="amado-btn-group mt-30 mb-100">
-        <?=($inCartCount > 3 and !isset($check_active)) ? "<a href='checkout.php' id='animate-checkout' class='btn amado-btn mb-15'>Checkout</a>" : "" ?>
+        <?=($inCartCount > 2 and !isset($check_active)) ? "<a href='checkout.php' id='animate-checkout' class='btn amado-btn mb-15'>Checkout</a>" : "" ?>
        
         <form action="" method="POST">
             <button type="submit" name="newthisweek" class="btn amado-btn active">New this week</button>
@@ -47,7 +42,7 @@
     <!-- Cart Menu -->
     <div class="cart-fav-search mb-100">
         <a href="cart.php" class="cart-nav"><img src="../../Public/img/core-img/cart.png" alt=""> Cart <span>(<?= isset($inCartCount) ? $inCartCount : 0 ?>)</span></a>
-        <a href="#" class="fav-nav"><img src="../../Public/img/core-img/favorites.png" alt=""> Favourite</a>
+        <a href="../core.php?getTop=1" class="fav-nav"><img src="../../Public/img/core-img/favorites.png" alt=""> Popular</a>
         <a href="#" class="search-nav"><img src="../../Public/img/core-img/search.png" alt=""> Search</a>
     </div>
     <!-- Social Button -->
