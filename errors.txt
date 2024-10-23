@@ -130,3 +130,7 @@ Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on 
 
 Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 987
 
+Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 993
+
+Error: keldi checkout in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 993
+

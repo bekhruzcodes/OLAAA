@@ -230,7 +230,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
 
-        <div class="personal-info">
+        <!-- <div class="personal-info">
             <div class="info-group">
                 <div class="info-label">Phone</div>
                 <div class="info-value">+1 234 567 890</div>
@@ -255,7 +255,8 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="info-label">Zip Code</div>
                 <div class="info-value">12345</div>
             </div>
-        </div>
+        </div> -->
+
         <button class="log-out" onclick="window.location.href='index.php'">Go back</button>
         <button class="log-out" onclick="logOut()">Log Out</button>
     </div>

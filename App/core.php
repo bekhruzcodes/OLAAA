@@ -790,7 +790,6 @@ function addToCart()
     return true;
 }
 
-
 function updateCart()
 {
     $db = connectToDatabase();
@@ -990,7 +989,7 @@ if (isset($_GET['min_price']) || isset($_GET['max_price']) ){
 
 
 if (isset($_POST['checkoutSubmit'])) {
-    logError("keldi checkout");
+  
     $fullName = isset($_POST['fullNameCOD']) ? $_POST['fullNameCOD'] : 'N/A'; 
     $cardNumber = isset($_POST['cardNumber']) ? $_POST['cardNumber'] : 'N/A'; 
     $cardHolder = isset($_POST['cardHolder']) ? $_POST['cardHolder'] : 'N/A';
@@ -1051,3 +1050,4 @@ if (isset($_GET['getTop'])) {
     header("Location: Views/index.php");
     exit();
 }
+

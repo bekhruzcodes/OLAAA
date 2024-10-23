@@ -17,6 +17,7 @@ $check_active = "active";
         <?php include_once "../comp/navbar.php" ?>
 
         <div class="cart-table-area section-padding-10" style="margin-bottom:4% !important;">
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-lg-8">
