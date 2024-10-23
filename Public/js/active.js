@@ -94,28 +94,63 @@
         $.preventDefault();
     });
 
-    // :: 11.0 Slider Range Price Active Code
-    $('.slider-range-price').each(function () {
-        var min = jQuery(this).data('min');
-        var max = jQuery(this).data('max');
-        var unit = jQuery(this).data('unit');
-        var value_min = jQuery(this).data('value-min');
-        var value_max = jQuery(this).data('value-max');
-        var label_result = jQuery(this).data('label-result');
-        var t = $(this);
-        $(this).slider({
-            range: true,
-            min: min,
-            max: max,
-            values: [value_min, value_max],
-            slide: function (event, ui) {
-                var result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
-                console.log(t);
-                t.closest('.slider-range').find('.range-price').html(result);
-            }
-        });
+  // :: 11.0 Slider Range Price Active Code
+  $('.slider-range-price').each(function () {
+    var min = jQuery(this).data('min');
+    var max = jQuery(this).data('max');
+    var unit = jQuery(this).data('unit');
+    var value_min = jQuery(this).data('value-min');
+    var value_max = jQuery(this).data('value-max');
+    var label_result = jQuery(this).data('label-result');
+    var t = $(this);
+
+   
+    // Initialize the slider
+    $(this).slider({
+        range: true,
+        min: min,
+        max: max,
+        values: [value_min, value_max],
+        slide: function (event, ui) {
+            // Update the result label on slide
+            var result = label_result + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
+            t.closest('.slider-range').find('.range-price').html(result);
+        },
+        stop: function (event, ui) {
+            // Get min and max values after stop dragging
+            let minPrice = ui.values[0];
+            let maxPrice = ui.values[1];
+
+            // Send the GET request when the slider stops moving
+            $.ajax({
+                url: 'http://localhost/My_folder/Funday/Olaaa/App/core.php',  // Replace with your actual endpoint
+                method: 'GET',
+                data: {
+                    min_price: minPrice,
+                    max_price: maxPrice
+                },
+                success: function (response) {
+                    // Handle the response if needed
+                    console.log("Request successful", response);
+            
+                    // Refresh the current page
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    // Handle any errors if needed
+                    console.error("Request failed", error);
+            
+                    // Refresh the current page even on error
+                    location.reload();
+                }
+            });
+        }
     });
 
+    // Set the initial display of the price range
+    var initial_result = label_result + " " + unit + value_min + ' - ' + unit + value_max;
+    t.closest('.slider-range').find('.range-price').html(initial_result);
+});
 })(jQuery);
 
 

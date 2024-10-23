@@ -55,7 +55,7 @@ $shop_active = "active";
 
                 <div class="widget-desc">
                     <div class="slider-range">
-                        <div data-min="10" data-max="1000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000" data-label-result="">
+                        <div data-min="10" data-max="1000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="<?=$min?>" data-value-max="<?=$max?>" data-label-result="">
                             <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>

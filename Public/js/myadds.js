@@ -15,7 +15,7 @@ function rateProduct(stars) {
 
     // Send the rating to PHP using AJAX
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "product-details.php", true); 
+    xhr.open("POST", "product-details.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("starChosen=" + stars);
 }
@@ -187,19 +187,19 @@ class ReviewsCarousel {
     init() {
         // Set up initial state
         this.updateActiveCard();
-        
+
         // Event listeners
         this.prevBtn.addEventListener('click', () => this.prev());
         this.nextBtn.addEventListener('click', () => this.next());
-        
+
         // Touch events for mobile swipe
         let touchStartX = 0;
         let touchEndX = 0;
-        
+
         this.carousel.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         });
-        
+
         this.carousel.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             this.handleSwipe(touchStartX, touchEndX);
@@ -217,7 +217,7 @@ class ReviewsCarousel {
         this.cards.forEach((card, index) => {
             card.classList.toggle('active', index === this.currentIndex);
         });
-        
+
         this.carouselInner.style.transform = `translateX(-${this.currentIndex * 100}%)`;
     }
 
@@ -265,3 +265,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // ### Carusel END ###
+
+
+
+
+
+
+
+
+

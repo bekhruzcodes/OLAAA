@@ -77,3 +77,44 @@ Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error
 
 Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''0', '8'' at line 21 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 463
 
+Error: min_price came in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 931
+
+Error: min_price came 663 // 1000 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 933
+
+Error: min_price came 36 // 1000 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 933
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'listings.price BETWEEN NULL AND NULL
+                LIMIT 4 OFFSET 0' at line 20 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 141
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'listings.price BETWEEN NULL AND NULL
+                LIMIT 4 OFFSET 0' at line 20 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 141
+
+Error: 10   -   505 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 952
+
+Error: 10   -   241 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 953
+
+Error: 10   -   914 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 953
+
+Error: 10   -   320 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 953
+
+Error: 10   -   637 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 953
+
+Error: 10   -   677 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 953
+
+Error: 10   -   1000 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 953
+
+Error: 10   -   347 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 953
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BETWEEN 10 AND 809' at line 1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 174
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BETWEEN 10 AND 512' at line 1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 174
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BETWEEN 10 AND 512' at line 1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 174
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BETWEEN 10 AND 1000' at line 1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 174
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BETWEEN 10 AND 1000' at line 1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 174
+
+Error: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'BETWEEN 10 AND 1000' at line 1 in C:\xampp\htdocs\My_folder\Funday\Olaaa\App\core.php on line 174
+
+Aiii

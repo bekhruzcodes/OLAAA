@@ -16,6 +16,20 @@ if (isset($_SESSION['pageNumber'])) {
 }
 
 
+if (isset($_SESSION['min'])) {
+    $min = intval($_SESSION['min']);
+} else {
+    $min = 10;
+}
+
+if (isset($_SESSION['max'])) {
+    $max = intval($_SESSION['max']);
+} else {
+    $max = 100000;
+}
+
+
+
 $current_page = basename($_SERVER['PHP_SELF']);
 
 $categories = GetCategories();
@@ -77,7 +91,8 @@ $delivery = ($totalPrice > 0) ? 299 : 0;
 
 function getPaginatedProducts($pageNumber = 1, $limit = 4)
 {
-
+    global $min;
+    global $max;
     $conn = connectToDatabase();
 
     if ($conn === null) {
@@ -107,11 +122,14 @@ function getPaginatedProducts($pageNumber = 1, $limit = 4)
                 ON 
                     categories.category_id = listings.category_id 
                 WHERE 
-                    listings.status != 'inactive'
+                    listings.status != 'inactive' AND
+                    listings.price BETWEEN :min AND :max
                 LIMIT :limit OFFSET :offset;";
 
         // Prepare and bind parameters
         $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':min', $min, PDO::PARAM_INT);
+        $stmt->bindParam(':max', $max, PDO::PARAM_INT);
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
@@ -131,6 +149,8 @@ function getPaginatedProducts($pageNumber = 1, $limit = 4)
 
 function getTotalProducts()
 {
+    global $min;
+    global $max;
     $conn = connectToDatabase();
 
     if ($conn === null) {
@@ -139,10 +159,12 @@ function getTotalProducts()
 
     try {
         // SQL query to count total active products
-        $sql = "SELECT COUNT(*) as total FROM listings WHERE status != 'inactive'";
-
+        $sql = "SELECT COUNT(*) as total FROM listings WHERE status != 'inactive' AND listings.price BETWEEN :min AND :max";
+        
         // Prepare and execute the query
         $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':min', $min, PDO::PARAM_INT);
+        $stmt->bindParam(':max', $max, PDO::PARAM_INT);
         $stmt->execute();
 
         // Fetch and return the total product count
@@ -417,6 +439,8 @@ function getThisWeeksProducts()
 
 function getProductsByCategoryId($categoryId, $pageNumber, $limit)
 {
+    global $min;
+    global $max;
     $conn = connectToDatabase();
 
     if ($conn === null) {
@@ -448,13 +472,17 @@ function getProductsByCategoryId($categoryId, $pageNumber, $limit)
                 WHERE 
                     listings.category_id = ? 
                     AND listings.status != 'inactive'
+                    AND listings.price BETWEEN ? AND ?
                 LIMIT ?, ?;";
 
         // Prepare and execute the statement
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(1, $categoryId, PDO::PARAM_INT);  // Bind categoryId as integer
-        $stmt->bindParam(2, $offset, PDO::PARAM_INT);      // Bind offset as integer
-        $stmt->bindParam(3, $limit, PDO::PARAM_INT);       // Bind limit as integer
+        $stmt->bindParam(2, $min, PDO::PARAM_INT);
+        $stmt->bindParam(3, $max, PDO::PARAM_INT);
+        $stmt->bindParam(4, $offset, PDO::PARAM_INT);      // Bind offset as integer
+        $stmt->bindParam(5, $limit, PDO::PARAM_INT);       // Bind limit as integer
+        
 
         $stmt->execute();
 
@@ -470,7 +498,9 @@ function getProductsByCategoryId($categoryId, $pageNumber, $limit)
 
 
 function getTotalProductsByCategoryId($categoryId)
-{
+{   
+    global $min;
+    global $max;
     $conn = connectToDatabase();
 
     if ($conn === null) {
@@ -481,11 +511,12 @@ function getTotalProductsByCategoryId($categoryId)
         // SQL query to count total products by category
         $sql = "SELECT COUNT(*) as total FROM listings 
                 WHERE category_id = ? 
+                AND listings.price BETWEEN ? AND ?
                 AND status != 'inactive'";
 
         // Prepare and execute the query
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$categoryId]);
+        $stmt->execute([$categoryId, $min, $max]);
 
         // Fetch and return the total product count
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -924,4 +955,13 @@ if (isset($_GET['pageNumber'])) {
     $_SESSION['pageNumber'] = $_GET['pageNumber'];
     header("Location: Views/shop.php");
     exit();
+}
+
+
+if (isset($_GET['min_price']) || isset($_GET['max_price']) ){
+    $min = intval($_GET['min_price']);
+    $max = intval($_GET['max_price']);
+    $_SESSION['min'] = $min;
+    $_SESSION['max'] = $max;
+   
 }
