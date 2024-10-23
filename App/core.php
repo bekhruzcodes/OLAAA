@@ -11,6 +11,7 @@ if (isset($_SESSION['limit'])) {
 
 if (isset($_SESSION['pageNumber'])) {
     $pageNumber = intval($_SESSION['pageNumber']);
+    unset($_SESSION['pageNumber']);
 } else {
     $pageNumber = 1;
 }
