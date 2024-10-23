@@ -4,7 +4,15 @@
 
 #### Discount buttonni o'rniga checkout button qilamiz va u faqat cartda product bo'lsa chiqadi animatsiya bilan va navbar list menudan olib tashlaymiz ####
 
-$$$$ Profile qismini yasash kerak user uchun, va log outni o'sha yerga ko'chiramiz
+#### Profile qismini yasash kerak user uchun, va log outni o'sha yerga ko'chiramiz
 
-$$$$ Sort by va Price rangeni qilish kerak globals set qilib hamma sql queriesga qo'shib chiqib
+
+
+$$$$ Sort byni qilish kerak globals set qilib hamma sql queriesga qo'shib chiqib
+
+$$$$ DB trigger to update status of products after each transaction Insert
+
+$$$$ Userni profiliga statistika qo'yish 
+
+$$$$ Review Insert qilganda current user_id dagi name bilan qilish
 
