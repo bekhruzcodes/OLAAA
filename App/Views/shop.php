@@ -75,7 +75,7 @@ $shop_active = "active";
                             <!-- Total Products -->
                             <div class="total-products">
                                 <p>Showing
-                                    <?= ($limit * ($pageNumber - 1) + 1) ?> -
+                                    <?= ($totalProducts==0)? 0:($limit * ($pageNumber - 1) + 1) ?> -
                                     <?= ($limit * $pageNumber > $totalProducts) ? $totalProducts : $limit * $pageNumber ?>
                                     of <?= $totalProducts ?>
                                 </p>

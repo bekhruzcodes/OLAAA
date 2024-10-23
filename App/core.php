@@ -147,7 +147,6 @@ function getPaginatedProducts($pageNumber = 1, $limit = 4)
 
 
 
-
 function getTotalProducts()
 {
     global $min;
@@ -176,7 +175,6 @@ function getTotalProducts()
         return 0;
     }
 }
-
 
 
 
@@ -527,8 +525,6 @@ function getTotalProductsByCategoryId($categoryId)
         return 0;
     }
 }
-
-
 
 
 
@@ -950,6 +946,7 @@ if (isset($_GET['limit'])) {
     header("Location: Views/shop.php");
     exit();
 }
+
 
 if (isset($_GET['pageNumber'])) {
 
